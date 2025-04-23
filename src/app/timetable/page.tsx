@@ -1,11 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { days, timetableData, DayKey } from '@/lib/timetableData';
+import { useSearchParams } from 'next/navigation';
 
 export default function TimeTablePage() {
   const [selectedDate, setSelectedDate] = useState<DayKey>('25.05.07');
   const currentTimetable = [...timetableData[selectedDate]];
+  const searchParams = useSearchParams();
+  const defaultDate = searchParams.get('date') as DayKey | null;
+
+  useEffect(() => {
+    const today = new Date();
+    const todayString = today.toLocaleDateString('ko-KR', {
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit',
+    }).replace(/\./g, '').trim().replace(/(\d{2})(\d{2})(\d{2})/, '20$1.$2.$3');
+  
+    if (defaultDate && timetableData[defaultDate]) {
+      setSelectedDate(defaultDate);
+    } else if (timetableData[todayString as DayKey]) {
+      setSelectedDate(todayString as DayKey);
+    }
+  }, [defaultDate]);
 
   return (
     <section className="p-4 space-y-6">

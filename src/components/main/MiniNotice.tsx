@@ -1,5 +1,6 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { notices } from '@/lib/noticeData';
 
@@ -7,6 +8,7 @@ export default function MiniNotice() {
   const router = useRouter();
 
   return (
+    <motion.div layout>
     <section>
       <div className="flex justify-between items-center mb-2">
         <h2 className="font-semibold text-lg">공지사항</h2>
@@ -29,5 +31,6 @@ export default function MiniNotice() {
         ))}
       </div>
     </section>
+    </motion.div>
   );
 }

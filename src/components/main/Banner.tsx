@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
-import { EffectCoverflow } from 'swiper/modules';
+import { Autoplay, EffectCoverflow } from 'swiper/modules';
 
 interface LineupInfo {
   src: string;
@@ -43,6 +43,11 @@ export default function Banner() {
         slidesPerView="auto"
         loop
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
         coverflowEffect={{
           rotate: 0,
           stretch: 0,
@@ -50,7 +55,7 @@ export default function Banner() {
           modifier: 2.5,
           slideShadows: false,
         }}
-        modules={[EffectCoverflow]}
+        modules={[EffectCoverflow, Autoplay]}
         className="w-full h-60"
       >
         {lineup.map((item, idx) => {
@@ -73,26 +78,26 @@ export default function Banner() {
               {/* ✅ 하단 그라데이션 오버레이 */}
               <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/60 to-transparent z-10" />
 
-              {/* 텍스트 오버레이 */}
+              {/* ✨ 텍스트 오버레이 */}
               <div
-                className={`absolute bottom-4 left-0 right-0 px-4 text-center z-20 transition-opacity duration-500 ${
+                className={`absolute bottom-6 left-0 right-0 px-4 text-center z-20 transition-opacity duration-500 ${
                   isActive ? 'opacity-100' : 'opacity-0'
                 }`}
               >
                 <div
-                  className={`text-xl font-bold text-white transition-all duration-500 ${
+                  className={`text-2xl font-bold text-white drop-shadow-[0_2px_6px_rgba(255,255,255,0.3)] tracking-wide transition-all duration-500 ${
                     isActive && loaded
                       ? 'opacity-100 delay-[500ms] translate-y-0'
-                      : 'opacity-0 translate-y-2'
+                      : 'opacity-0 translate-y-3'
                   }`}
                 >
                   {item.name}
                 </div>
                 <div
-                  className={`text-lg mt-1 text-white transition-all duration-500 ${
+                  className={`text-base mt-2 text-white drop-shadow-[0_1px_4px_rgba(255,255,255,0.2)] tracking-tight transition-all duration-500 ${
                     isActive && loaded
                       ? 'opacity-100 delay-[800ms] translate-y-0'
-                      : 'opacity-0 translate-y-2'
+                      : 'opacity-0 translate-y-3'
                   }`}
                 >
                   {item.time}
