@@ -1,5 +1,7 @@
 'use client';
+
 import { useRouter } from 'next/navigation';
+import { notices } from '@/lib/noticeData';
 
 export default function MiniNotice() {
   const router = useRouter();
@@ -16,9 +18,15 @@ export default function MiniNotice() {
         </button>
       </div>
       <div className="space-y-2">
-        <div className="p-3 bg-blue-50 rounded-md">📢 우천 시 대피 안내</div>
-        <div className="p-3 bg-blue-50 rounded-md">📢 DAY 2 라인업 변경</div>
-        <div className="p-3 bg-blue-50 rounded-md">📢 푸드트럭 운영 시간</div>
+        {notices.slice(0, 3).map((notice) => (
+          <div
+            key={notice.id}
+            className="p-3 bg-blue-50 rounded-md cursor-pointer"
+            onClick={() => router.push(`/notice/${notice.id}`)}
+          >
+            📢 {notice.title}
+          </div>
+        ))}
       </div>
     </section>
   );
