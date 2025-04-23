@@ -1,5 +1,7 @@
 package com.cloud.phoenixia.controller;
 
+import com.cloud.phoenixia.dto.BoothRequestDTO;
+import com.cloud.phoenixia.dto.BoothResponseDTO;
 import com.cloud.phoenixia.model.Booth;
 import com.cloud.phoenixia.service.BoothService;
 import lombok.RequiredArgsConstructor;
@@ -15,27 +17,29 @@ public class BoothController {
 
     private final BoothService boothService;
 
+    @PostMapping
+    public ResponseEntity<String> create(@RequestBody BoothRequestDTO dto) {
+        boothService.createFromDTO(dto);
+        return ResponseEntity.ok("Booth 등록 완료!");
+    }
+
     @GetMapping
-    public List<Booth> getAll() {
-        return boothService.findAll();
+    public List<BoothResponseDTO> getAll() {
+        return boothService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Booth> getOne(@PathVariable Long id) {
+    public ResponseEntity<BoothResponseDTO> getById(@PathVariable Long id) {
         return boothService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Booth create(@RequestBody Booth booth) {
-        return boothService.create(booth);
-    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Booth> update(@PathVariable Long id, @RequestBody Booth booth) {
+    public ResponseEntity<BoothResponseDTO> update(@PathVariable Long id, @RequestBody BoothRequestDTO dto) {
         try {
-            return ResponseEntity.ok(boothService.update(id, booth));
+            return ResponseEntity.ok(boothService.updateFromDTO(id, dto));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
