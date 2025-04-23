@@ -39,4 +39,21 @@ public class NoticeService {
                 .content(notice.getContent())
                 .build();
     }
+
+
+
+    public Notice update(Long id, NoticeRequestDTO dto) {
+        return noticeRepository.findById(id)
+                .map(notice -> {
+                    notice.setTitle(dto.getTitle());
+                    notice.setDate(LocalDate.parse(dto.getDate()));
+                    notice.setContent(dto.getContent());
+                    return noticeRepository.save(notice);
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Notice not found"));
+    }
+
+    public void delete(Long id) {
+        noticeRepository.deleteById(id);
+    }
 }
