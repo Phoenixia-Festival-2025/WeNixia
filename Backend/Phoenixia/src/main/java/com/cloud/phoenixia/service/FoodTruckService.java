@@ -1,8 +1,11 @@
 package com.cloud.phoenixia.service;
 
+import com.cloud.phoenixia.dto.FoodTruckRequestDTO;
 import com.cloud.phoenixia.dto.FoodTruckResponseDTO;
 import com.cloud.phoenixia.dto.MenuItemDTO;
+import com.cloud.phoenixia.model.BoothStatus;
 import com.cloud.phoenixia.model.FoodTruck;
+import com.cloud.phoenixia.model.MenuItem;
 import com.cloud.phoenixia.repository.FoodTruckRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,11 +47,25 @@ public class FoodTruckService {
                 .map(this::convertToDTO);
     }
 
-    // ✅ 생성
-    public FoodTruck create(FoodTruck foodTruck) {
-        // 연관관계 주입
-        foodTruck.getMenuItems().forEach(menu -> menu.setFoodTruck(foodTruck));
-        return foodTruckRepository.save(foodTruck);
+    public FoodTruck createFromDTO(FoodTruckRequestDTO dto) {
+        FoodTruck truck = FoodTruck.builder()
+                .name(dto.getName())
+                .description(dto.getDescription())
+                .status(BoothStatus.valueOf(dto.getStatus()))
+                .build();
+
+        List<MenuItem> menuList = dto.getMenuItems().stream()
+                .map(item -> MenuItem.builder()
+                        .name(item.getName())
+                        .description(item.getDescription())
+                        .price(item.getPrice())
+                        .imageUrl(item.getImageUrl())
+                        .foodTruck(truck) // 연관관계 주입!
+                        .build()
+                ).toList();
+
+        truck.setMenuItems(menuList);
+        return foodTruckRepository.save(truck);
     }
 
     // ✅ 수정
