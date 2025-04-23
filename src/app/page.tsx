@@ -9,7 +9,6 @@ export default function HomePage() {
   return (
     <section className="p-4 space-y-6">
       <Banner />
-      <DaySelector />
       <MiniTimetable />
       <MiniNotice />
     </section>
