@@ -1,8 +1,13 @@
 'use client';
+
 import { useRouter } from 'next/navigation';
+import { timetableData } from '@/lib/timetableData';
 
 export default function MiniTimetable() {
   const router = useRouter();
+  const todayKey = '25.05.07'; // TODO: 오늘 날짜 기준 자동 설정 원할 경우 로직 추가
+
+  const todaysTimetable = timetableData[todayKey] || [];
 
   return (
     <section>
@@ -16,9 +21,12 @@ export default function MiniTimetable() {
         </button>
       </div>
       <div className="space-y-2">
-        <div className="p-3 bg-blue-50 rounded-md">🔥 13:00 - 개막식</div>
-        <div className="p-3 bg-blue-50 rounded-md">🎵 15:00 - 공연 A</div>
-        <div className="p-3 bg-blue-50 rounded-md">🎉 19:00 - DJ 파티</div>
+        {todaysTimetable.slice(0, 3).map((item, idx) => (
+          <div key={idx} className="p-3 bg-blue-50 rounded-md">
+            {item.time}
+            {item.title}
+          </div>
+        ))}
       </div>
     </section>
   );
