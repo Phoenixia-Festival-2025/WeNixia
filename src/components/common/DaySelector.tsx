@@ -16,7 +16,7 @@ export default function DaySelector() {
         <button
           key={day.date}
           className={`flex-1 py-2 bg-gray-100 text-gray-700 rounded-full font-bold ${
-            day.date === '25.05.07' ? 'bg-pink-500 text-white' : ''
+            day.date === '25.05.07' ? 'bg-blue-500 text-white' : ''
           }`}
         >
           {day.label}

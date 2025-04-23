@@ -1,36 +1,43 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { notices } from '@/lib/noticeData';
+import { Megaphone } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function MiniNotice() {
   const router = useRouter();
 
   return (
-    <motion.div layout>
-    <section>
-      <div className="flex justify-between items-center mb-2">
-        <h2 className="font-semibold text-lg">공지사항</h2>
+    <section className="px-4 mt-8">
+      {/* 제목 영역 */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="flex items-center gap-2 text-lg font-bold text-gray-800">
+          <Megaphone className="w-5 h-5 text-blue-500" />
+          공지사항
+        </h2>
         <button
-          className="text-sm text-blue-500"
+          className="text-sm text-blue-500 hover:underline font-medium"
           onClick={() => router.push('/notice')}
         >
           더보기
         </button>
       </div>
+
+      {/* 공지 리스트 */}
       <div className="space-y-2">
         {notices.slice(0, 3).map((notice) => (
-          <div
+          <motion.div
             key={notice.id}
-            className="p-3 bg-blue-50 rounded-md cursor-pointer"
             onClick={() => router.push(`/notice/${notice.id}`)}
+            whileHover={{ scale: 1.02 }}
+            className="cursor-pointer bg-blue-50 border border-blue-100 rounded-xl p-3 shadow-sm transition flex items-center gap-2"
           >
-            📢 {notice.title}
-          </div>
+            <Megaphone className="w-4 h-4 text-blue-400 flex-shrink-0" />
+            <span className="text-sm text-gray-800">{notice.title}</span>
+          </motion.div>
         ))}
       </div>
     </section>
-    </motion.div>
   );
 }

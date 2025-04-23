@@ -25,10 +25,10 @@ export default function FestivalSummary() {
             key={index}
             onClick={() => toggle(index)}
             className={`aspect-square rounded-xl border shadow-sm bg-white p-4 flex flex-col items-center justify-center transition-all duration-300 ${
-              selectedIndex === index ? 'scale-105 border-purple-500' : 'hover:scale-105'
+              selectedIndex === index ? 'scale-105 border-blue-500' : 'hover:scale-105'
             }`}
           >
-            <div className="text-lg font-semibold text-purple-600">{item.day}</div>
+            <div className="text-lg font-semibold text-blue-600">{item.day}</div>
             <div className="text-sm text-gray-500 mt-1">{item.date}</div>
           </button>
         ))}

@@ -22,7 +22,7 @@ export default function BottomNav() {
             key={item.path}
             onClick={() => router.push(item.path)}
             className={`flex flex-col items-center text-xs ${
-              isActive ? 'text-purple-600 font-bold' : 'text-gray-500'
+              isActive ? 'text-blue-600 font-bold' : 'text-gray-500'
             }`}
           >
             {item.icon}
