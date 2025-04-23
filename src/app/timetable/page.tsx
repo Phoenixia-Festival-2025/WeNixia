@@ -28,7 +28,7 @@ export default function TimeTablePage() {
   return (
     <section className="p-4 space-y-6">
       {/* 배너 이미지 */}
-      <div className="w-full h-40 bg-purple-300 rounded-md flex items-center justify-center text-white text-lg font-bold">
+      <div className="w-full h-40 bg-blue-300 rounded-md flex items-center justify-center text-white text-lg font-bold">
         타임테이블 안내 배너
       </div>
 
@@ -40,7 +40,7 @@ export default function TimeTablePage() {
             onClick={() => setSelectedDate(day.date)}
             className={`flex-1 py-2 rounded-full font-bold ${
               selectedDate === day.date
-                ? 'bg-purple-600 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'bg-gray-100 text-gray-700'
             }`}
           >
@@ -56,7 +56,7 @@ export default function TimeTablePage() {
         {currentTimetable.map((item, idx) => (
           <div
             key={idx}
-            className="bg-purple-50 border-l-4 border-purple-400 p-3 rounded-md shadow-sm"
+            className="bg-blue-50 border-l-4 border-blue-400 p-3 rounded-md shadow-sm"
           >
             <div className="text-sm text-gray-500">{item.time}</div>
             <div className="text-base font-medium">{item.title}</div>
