@@ -13,10 +13,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="ko">
       <body className="min-h-screen flex flex-col bg-white text-gray-900 overflow-y-scroll no-scrollbar">
         <ProviderWrapper>
-          {/* 상단 네비게이션 바 */}
-          <header className="fixed top-0 w-full z-50 bg-white border-b px-4 py-2 text-xl font-bold shadow-sm">
-            WeNixia
-          </header>
+        <header className="fixed top-0 w-full z-50 bg-white border-b px-4 py-2 shadow-sm flex items-center justify-between">
+          
+          <div className="text-xl font-bold">WeNixia</div>
+
+          <div className="text-sm font-bold">우리들의 피닉시아 축제</div>
+        </header>
 
           <main className="pt-[45px] pb-[72px]">{children}</main>
 
