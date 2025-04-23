@@ -31,6 +31,7 @@ public class FoodTruck {
     @Enumerated(EnumType.STRING)
     private BoothStatus status;
 
+    @Builder.Default
     @OneToMany(mappedBy = "foodTruck", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MenuItem> menuItems = new ArrayList<>();
 }

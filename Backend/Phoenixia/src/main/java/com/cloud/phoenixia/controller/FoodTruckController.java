@@ -39,9 +39,10 @@ public class FoodTruckController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FoodTruck> update(@PathVariable Long id, @RequestBody FoodTruck foodTruck) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody FoodTruckRequestDTO dto) {
         try {
-            return ResponseEntity.ok(foodTruckService.update(id, foodTruck));
+            FoodTruck updated = foodTruckService.updateFromDTO(id, dto);
+            return ResponseEntity.ok("수정 완료");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }

@@ -6,6 +6,7 @@ import com.cloud.phoenixia.dto.MenuItemDTO;
 import com.cloud.phoenixia.model.BoothStatus;
 import com.cloud.phoenixia.model.FoodTruck;
 import com.cloud.phoenixia.model.MenuItem;
+import com.cloud.phoenixia.model.MenuItemStatus;
 import com.cloud.phoenixia.repository.FoodTruckRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,7 @@ public class FoodTruckService {
                                                 .description(menu.getDescription())
                                                 .price(menu.getPrice())
                                                 .imageUrl(menu.getImageUrl())
+                                                .status(menu.getStatus() != null ? menu.getStatus().name() : null)
                                                 .build())
                                         .toList()
                         )
@@ -55,27 +57,46 @@ public class FoodTruckService {
                 .build();
 
         List<MenuItem> menuList = dto.getMenuItems().stream()
-                .map(item -> MenuItem.builder()
-                        .name(item.getName())
-                        .description(item.getDescription())
-                        .price(item.getPrice())
-                        .imageUrl(item.getImageUrl())
-                        .foodTruck(truck) // 연관관계 주입!
-                        .build()
-                ).toList();
+                .map(item -> {
+                    // 🧠 상태 기본값 처리
+                    MenuItemStatus status = item.getStatus() != null
+                            ? MenuItemStatus.valueOf(item.getStatus())
+                            : MenuItemStatus.판매중;
+
+                    return MenuItem.builder()
+                            .name(item.getName())
+                            .description(item.getDescription())
+                            .price(item.getPrice())
+                            .imageUrl(item.getImageUrl())
+                            .status(status) // ✅ status 설정
+                            .foodTruck(truck) // ✅ 연관관계 주입
+                            .build();
+                }).toList();
 
         truck.setMenuItems(menuList);
         return foodTruckRepository.save(truck);
     }
 
-    // ✅ 수정
-    public FoodTruck update(Long id, FoodTruck updatedTruck) {
+    public FoodTruck updateFromDTO(Long id, FoodTruckRequestDTO dto) {
         return foodTruckRepository.findById(id)
                 .map(truck -> {
-                    truck.setName(updatedTruck.getName());
-                    truck.setDescription(updatedTruck.getDescription());
-                    truck.setStatus(updatedTruck.getStatus());
-                    // 메뉴 업데이트는 별도 처리 필요할 수도 있음
+                    truck.setName(dto.getName());
+                    truck.setDescription(dto.getDescription());
+                    truck.setStatus(BoothStatus.valueOf(dto.getStatus()));
+
+                    if (dto.getMenuItems() != null) {
+                        dto.getMenuItems().forEach(item -> {
+                            truck.getMenuItems().stream()
+                                    .filter(existing -> existing.getName().equals(item.getName()))
+                                    .findFirst()
+                                    .ifPresent(existing -> {
+                                        existing.setStatus(item.getStatus() != null
+                                                ? MenuItemStatus.valueOf(item.getStatus())
+                                                : MenuItemStatus.판매중);
+                                    });
+                        });
+                    }
+
                     return foodTruckRepository.save(truck);
                 })
                 .orElseThrow(() -> new IllegalArgumentException("FoodTruck not found"));
@@ -100,6 +121,7 @@ public class FoodTruckService {
                                         .description(menu.getDescription())
                                         .price(menu.getPrice())
                                         .imageUrl(menu.getImageUrl())
+                                        .status(menu.getStatus() != null ? menu.getStatus().name() : null)
                                         .build()
                                 ).collect(Collectors.toList())
                 )
