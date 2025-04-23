@@ -11,5 +11,6 @@ public class MenuItemDTO {
     private String description;
     private int price;
     private String imageUrl;
+    private String status;
 }
 

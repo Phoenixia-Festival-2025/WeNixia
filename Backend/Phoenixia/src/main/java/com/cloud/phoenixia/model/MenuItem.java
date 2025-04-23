@@ -22,7 +22,15 @@ public class MenuItem {
 
     private String imageUrl;
 
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MenuItemStatus status = MenuItemStatus.판매중;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "food_truck_id")
     private FoodTruck foodTruck;
+
+
 }
