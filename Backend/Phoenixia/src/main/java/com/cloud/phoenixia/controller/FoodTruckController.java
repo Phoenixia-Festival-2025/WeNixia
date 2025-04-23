@@ -1,5 +1,6 @@
 package com.cloud.phoenixia.controller;
 
+import com.cloud.phoenixia.dto.FoodTruckRequestDTO;
 import com.cloud.phoenixia.model.FoodTruck;
 import com.cloud.phoenixia.service.FoodTruckService;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,9 @@ public class FoodTruckController {
 
 
     @PostMapping
-    public FoodTruck create(@RequestBody FoodTruck foodTruck) {
-        return foodTruckService.create(foodTruck);
+    public ResponseEntity<?> create(@RequestBody FoodTruckRequestDTO dto) {
+        FoodTruck foodTruck = foodTruckService.createFromDTO(dto);
+        return ResponseEntity.ok("푸드트럭 등록 성공!");
     }
 
     @PutMapping("/{id}")
