@@ -73,7 +73,7 @@ export default function CurrentTimeBlock({
   return (
     <section className="px-4 mt-10 space-y-4">
       <h2 className="flex items-center text-lg font-bold text-gray-800 gap-2">
-        <Clock className="w-5 h-5 text-blue-500" />
+        <Clock className="w-5 h-5 text-black-500" />
         지금 이 시간
       </h2>
 
@@ -110,14 +110,14 @@ export default function CurrentTimeBlock({
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4 }}
-              className="w-full max-w-md relative bg-white border-2 border-blue-500 p-5 rounded-xl shadow-lg"
+              className="w-full max-w-md relative bg-white border-2 border-blue-300 p-5 rounded-xl shadow-lg"
             >
-              <div className="absolute inset-0 bg-blue-100 opacity-20 rounded-xl z-0" />
+              <div className="absolute inset-0 bg-blue-200 opacity-20 rounded-xl z-0" />
               <div className="relative z-10 text-center">
-                <div className="text-sm font-semibold text-blue-700 tracking-wide">
+                <div className="text-sm font-semibold text-black-100 tracking-wide">
                   진행중
                 </div>
-                <div className="text-lg font-bold text-blue-900 mt-1">
+                <div className="text-lg font-bold text-black-900 mt-1">
                   {current.time} - {current.title}
                 </div>
               </div>
@@ -125,7 +125,7 @@ export default function CurrentTimeBlock({
 
             {/* 다음 */}
             {next ? (
-              <div className="w-full max-w-md bg-gradient-to-l from-blue-100 to-white border-r-4 border-blue-300 p-3 rounded-xl text-blue-700 flex items-center place-content-center gap-2 shadow-sm">
+              <div className="w-full max-w-md bg-gradient-to-l from-blue-100 to-white border-r-4 border-blue-300 p-3 rounded-xl text-indigo-800 flex items-center place-content-center gap-2 shadow-sm">
                 <span className="text-sm">
                   다음: {next.time} - {next.title}
                 </span>

@@ -24,11 +24,11 @@ export default function FestivalSummary() {
           <button
             key={index}
             onClick={() => toggle(index)}
-            className={`aspect-square rounded-xl border shadow-sm bg-white p-4 flex flex-col items-center justify-center transition-all duration-300 ${
-              selectedIndex === index ? 'scale-105 border-blue-500' : 'hover:scale-105'
+            className={`aspect-square border rounded-xl shadow-sm bg-indigo-50 p-4 flex flex-col items-center justify-center transition-all duration-300 ${
+              selectedIndex === index ? 'scale-105 border-indigo-500' : 'hover:scale-105 border-indigo-50'
             }`}
           >
-            <div className="text-lg font-semibold text-blue-600">{item.day}</div>
+            <div className="text-lg font-semibold text-indigo-600">{item.day}</div>
             <div className="text-sm text-gray-500 mt-1">{item.date}</div>
           </button>
         ))}

@@ -13,11 +13,11 @@ export default function MiniNotice() {
       {/* 제목 영역 */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="flex items-center gap-2 text-lg font-bold text-gray-800">
-          <Megaphone className="w-5 h-5 text-blue-500" />
+          <Megaphone className="w-5 h-5 text-black-500" />
           공지사항
         </h2>
         <button
-          className="text-sm text-blue-500 hover:underline font-medium"
+          className="text-sm text-gray-500 hover:underline font-medium"
           onClick={() => router.push('/notice')}
         >
           더보기
@@ -31,9 +31,8 @@ export default function MiniNotice() {
             key={notice.id}
             onClick={() => router.push(`/notice/${notice.id}`)}
             whileHover={{ scale: 1.02 }}
-            className="cursor-pointer bg-blue-50 border border-blue-100 rounded-xl p-3 shadow-sm transition flex items-center gap-2"
+            className="cursor-pointer bg-indigo-50 border border-indigo-100 rounded-xl p-3 shadow-sm transition flex items-center gap-2"
           >
-            <Megaphone className="w-4 h-4 text-blue-400 flex-shrink-0" />
             <span className="text-sm text-gray-800">{notice.title}</span>
           </motion.div>
         ))}

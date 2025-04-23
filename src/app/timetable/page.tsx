@@ -1,12 +1,35 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { days, timetableData, DayKey } from '@/lib/timetableData';
 import { useSearchParams } from 'next/navigation';
+import { DayKey, timetableData } from '@/lib/timetableData';
+
+import TimeTableBanner from '@/components/timetable/TimeTableBanner';
+import TimeTableDaySelector from '@/components/timetable/TimeTableDaySelector';
+import TimeTableList from '@/components/timetable/TimeTableList';
+import { AnimatePresence, motion } from 'framer-motion';
+
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.25,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
 
 export default function TimeTablePage() {
   const [selectedDate, setSelectedDate] = useState<DayKey>('25.05.07');
-  const currentTimetable = [...timetableData[selectedDate]];
   const searchParams = useSearchParams();
   const defaultDate = searchParams.get('date') as DayKey | null;
 
@@ -17,7 +40,7 @@ export default function TimeTablePage() {
       month: '2-digit',
       day: '2-digit',
     }).replace(/\./g, '').trim().replace(/(\d{2})(\d{2})(\d{2})/, '20$1.$2.$3');
-  
+
     if (defaultDate && timetableData[defaultDate]) {
       setSelectedDate(defaultDate);
     } else if (timetableData[todayString as DayKey]) {
@@ -26,46 +49,29 @@ export default function TimeTablePage() {
   }, [defaultDate]);
 
   return (
-    <section className="p-4 space-y-6">
-      {/* 배너 이미지 */}
-      <div className="w-full h-40 bg-blue-300 rounded-md flex items-center justify-center text-white text-lg font-bold">
-        타임테이블 안내 배너
-      </div>
-
-      {/* 날짜 버튼 */}
-      <div className="flex justify-between gap-2">
-        {days.map((day) => (
-          <button
-            key={day.date}
-            onClick={() => setSelectedDate(day.date)}
-            className={`flex-1 py-2 rounded-full font-bold ${
-              selectedDate === day.date
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700'
-            }`}
-          >
-            {day.label}
-            <br />
-            {day.date}
-          </button>
-        ))}
-      </div>
-
-      {/* 일정 목록 */}
-      <section className="space-y-2">
-        {currentTimetable.map((item, idx) => (
-          <div
-            key={idx}
-            className="bg-blue-50 border-l-4 border-blue-400 p-3 rounded-md shadow-sm"
-          >
-            <div className="text-sm text-gray-500">{item.time}</div>
-            <div className="text-base font-medium">{item.title}</div>
-          </div>
-        ))}
-        {currentTimetable.length === 0 && (
-          <div className="text-gray-400 text-center py-10">해당 날짜에 일정이 없습니다.</div>
-        )}
-      </section>
-    </section>
+    <motion.section
+      className="p-4 space-y-6"
+      initial="hidden"
+      animate="visible"
+      variants={container}
+    >
+      <motion.div variants={fadeInUp}>
+        <TimeTableBanner />
+      </motion.div>
+      <motion.div variants={fadeInUp}>
+        <TimeTableDaySelector selectedDate={selectedDate} onSelect={setSelectedDate} />
+      </motion.div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selectedDate}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.3 }}
+        >
+          <TimeTableList selectedDate={selectedDate} />
+        </motion.div>
+      </AnimatePresence>
+    </motion.section>
   );
 }
