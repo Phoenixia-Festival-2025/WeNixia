@@ -5,6 +5,7 @@ import com.cloud.phoenixia.service.FoodTruckService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.cloud.phoenixia.dto.FoodTruckResponseDTO;
 
 import java.util.List;
 
@@ -15,17 +16,20 @@ public class FoodTruckController {
 
     private final FoodTruckService foodTruckService;
 
+
     @GetMapping
-    public List<FoodTruck> getAll() {
-        return foodTruckService.findAll();
+    public List<FoodTruckResponseDTO> getAll() {
+        return foodTruckService.getAllWithMenus();
     }
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<FoodTruck> getOne(@PathVariable Long id) {
-        return foodTruckService.findById(id)
+    public ResponseEntity<FoodTruckResponseDTO> getOne(@PathVariable Long id) {
+        return foodTruckService.findDTOById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
 
     @PostMapping
     public FoodTruck create(@RequestBody FoodTruck foodTruck) {
