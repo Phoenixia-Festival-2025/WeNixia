@@ -3,6 +3,9 @@ package com.cloud.phoenixia.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -27,4 +30,7 @@ public class FoodTruck {
 
     @Enumerated(EnumType.STRING)
     private BoothStatus status;
+
+    @OneToMany(mappedBy = "foodTruck", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MenuItem> menuItems = new ArrayList<>();
 }
