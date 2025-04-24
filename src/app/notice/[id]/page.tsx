@@ -5,6 +5,7 @@ import { notices } from '@/lib/noticeData';
 import NoticeDetail from '@/components/notice/NoticeDetail';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { motion } from 'framer-motion';
 
 export default function NoticeDetailPage() {
   const router = useRouter();
@@ -18,20 +19,38 @@ export default function NoticeDetailPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="bg-gray-100 h-14 flex items-center px-4">
+      {/* 상단 바 */}
+      <div className="bg-white h-14 flex items-center px-4 shadow-sm">
         <IconButton onClick={() => router.back()} size="small">
           <ArrowBackIcon />
         </IconButton>
-
         <div className="flex-1 text-center pr-10">
-          <span className="text-sm font-medium text-gray-700">공지사항</span>
+          <span className="text-base font-semibold text-gray-800">공지사항</span>
         </div>
       </div>
 
       {/* 본문 */}
-      <section className="p-4 space-y-6">
-        <NoticeDetail {...notice} />
-      </section>
+      <motion.section
+        className="p-4 space-y-6"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: 0.2, delayChildren: 0.1 },
+          },
+        }}
+      >
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+          }}
+          className="bg-white rounded-xl p-4 shadow-md"
+        >
+          <NoticeDetail {...notice} />
+        </motion.div>
+      </motion.section>
     </div>
   );
 }
