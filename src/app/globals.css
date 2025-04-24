@@ -33,3 +33,19 @@ body {
   -ms-overflow-style: none;  /* IE, Edge */
   scrollbar-width: none;     /* Firefox */
 }
+
+.booth-carousel .swiper-slide {
+  width: 150px;
+  height: 200px;
+}
+
+.swiper-wrapper {
+  will-change: transform;
+}
+.booth-carousel-container {
+  overflow-x: hidden;
+}
+
+.booth-carousel {
+  touch-action: pan-y;
+}
