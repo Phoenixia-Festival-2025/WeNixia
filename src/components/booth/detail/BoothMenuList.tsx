@@ -1,6 +1,7 @@
 interface Menu {
   name: string;
   price: string;
+  imageUrl?: string;
 }
 
 interface BoothMenuListProps {
@@ -12,15 +13,31 @@ export default function BoothMenuList({ menus }: BoothMenuListProps) {
 
   return (
     <div>
-      <h2 className="font-semibold text-lg mb-2">메뉴</h2>
+      <h2 className="font-semibold text-lg mb-2">🍽️ 메뉴</h2>
       <div className="space-y-2">
         {menus.map((menu, idx) => (
           <div
             key={idx}
-            className="flex justify-between items-center bg-gray-50 p-3 rounded-md border"
+            className="flex items-center justify-between bg-white rounded-md p-3 shadow-sm"
           >
-            <span className="text-gray-800">{menu.name}</span>
-            <span className="text-gray-600">{menu.price}</span>
+            {/* 텍스트 */}
+            <div className="flex-1">
+              <div className="text-gray-800 font-medium">{menu.name}</div>
+              <div className="text-gray-500 text-sm mt-0.5">{menu.price}</div>
+            </div>
+
+            {/* 이미지 */}
+            {menu.imageUrl ? (
+              <img
+                src={menu.imageUrl}
+                alt={menu.name}
+                className="w-16 h-16 object-cover rounded-md ml-4"
+              />
+            ) : (
+              <div className="w-16 h-16 flex items-center justify-center bg-gray-100 text-gray-400 text-xs rounded-md ml-4">
+                이미지 없음
+              </div>
+            )}
           </div>
         ))}
       </div>
