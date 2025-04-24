@@ -10,12 +10,12 @@ export default function BoothCategorySelector({
   onSelect,
 }: BoothCategorySelectorProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto no-scrollbar">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full">
       {categories.map((cat) => (
         <button
           key={cat}
           onClick={() => onSelect(cat)}
-          className={`flex-shrink-0 px-4 py-2 rounded-full border font-medium ${
+          className={`px-4 py-2 rounded-full border font-medium text-sm text-center transition ${
             selected === cat
               ? 'bg-orange-500 text-white'
               : 'bg-gray-100 text-gray-600'
