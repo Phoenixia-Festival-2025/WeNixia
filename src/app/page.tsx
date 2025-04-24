@@ -42,7 +42,7 @@ export default function HomePage() {
         <FestivalSummary />
       </motion.div>
       <motion.div variants={fadeInUp}>
-        <CurrentTimeBlock date="25.05.07" testTime="13:00" />
+        <CurrentTimeBlock date="25.05.08" testTime="16:00" />
       </motion.div>
       <motion.div variants={fadeInUp}>
         <MiniNotice />

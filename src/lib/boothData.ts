@@ -39,4 +39,28 @@ export const booths: Booth[] = [
     time: '상시 운영',
     imageUrl: '/images/booth/tent.png',
   },
+  {
+    id: 4,
+    category: '푸드트럭',
+    name: '닭강정 트럭',
+    description: '달콤한 닭강정과 탄산음료',
+    time: '11:00 ~ 20:00',
+    imageUrl: '/images/booth/chicken.png',
+    menus: [
+      { name: '달콤 닭강정', price: '5,000원' },
+      { name: '매콤 닭강정', price: '5,500원' },
+    ],
+  },
+  {
+    id: 5,
+    category: '푸드트럭',
+    name: '닭강정 트럭',
+    description: '달콤한 닭강정과 탄산음료',
+    time: '11:00 ~ 20:00',
+    imageUrl: '/images/booth/chicken.png',
+    menus: [
+      { name: '달콤 닭강정', price: '5,000원' },
+      { name: '매콤 닭강정', price: '5,500원' },
+    ],
+  },
 ];
