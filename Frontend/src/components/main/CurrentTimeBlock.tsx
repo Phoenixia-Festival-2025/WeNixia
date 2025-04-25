@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { timetableData, DayKey } from '@/lib/timetableData';
 import { motion } from 'framer-motion';
-import { Clock, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 function getCurrentTime() {
   const now = new Date();

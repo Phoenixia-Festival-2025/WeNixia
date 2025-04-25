@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Booth } from '@/lib/boothData';
 
 interface BoothCardProps {
   id: number;
