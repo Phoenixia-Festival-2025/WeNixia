@@ -4,7 +4,9 @@ import com.cloud.phoenixia.dto.NoticeRequestDTO;
 import com.cloud.phoenixia.dto.NoticeResponseDTO;
 import com.cloud.phoenixia.model.Notice;
 import com.cloud.phoenixia.service.NoticeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +25,7 @@ public class NoticeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody NoticeRequestDTO dto) {
+    public ResponseEntity<?> create(@RequestBody @Valid NoticeRequestDTO dto) {
         Notice saved = noticeService.create(dto);
         return ResponseEntity.ok("공지 등록 완료! ID: " + saved.getId());
     }
