@@ -3,6 +3,7 @@ package com.cloud.phoenixia.controller;
 import com.cloud.phoenixia.dto.ScheduleRequestDTO;
 import com.cloud.phoenixia.dto.ScheduleResponseDTO;
 import com.cloud.phoenixia.service.ScheduleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody ScheduleRequestDTO dto) {
+    public ResponseEntity<?> create(@RequestBody @Valid ScheduleRequestDTO dto) {
         scheduleService.create(dto);
         return ResponseEntity.ok("타임테이블 항목 등록 완료!");
     }
