@@ -13,21 +13,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "tejava7177"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;tejava7177&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Phoenixia-Festival-2025/WeNixia.git",
-    "accountId": "d3c93124-31d5-4a2c-adc1-622e62b9c41c"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Phoenixia-Festival-2025/WeNixia.git&quot;,
+    &quot;accountId&quot;: &quot;d3c93124-31d5-4a2c-adc1-622e62b9c41c&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2w7TPCFCcWdAFPHv1t0ktlTpo7L" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -37,7 +37,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Backend",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/simjuheun/Desktop/Team/WeNixia/Backend",
     "node.js.detected.package.eslint": "true",
@@ -65,6 +65,7 @@
       <option name="presentableId" value="Default" />
       <updated>1745391585292</updated>
       <workItem from="1745391586372" duration="414000" />
+      <workItem from="1745671062263" duration="90000" />
     </task>
     <servers />
   </component>
