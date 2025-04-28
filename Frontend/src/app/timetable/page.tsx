@@ -1,4 +1,4 @@
-// 📄 app/timetable/page.tsx
+'use client';
 
 import { Suspense } from 'react';
 import TimeTablePageClient from '@/components/timetable/TimeTablePageClient';

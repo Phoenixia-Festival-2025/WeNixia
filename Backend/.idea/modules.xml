@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Backend.iml" filepath="$PROJECT_DIR$/.idea/Backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Phoenixia.iml" filepath="$PROJECT_DIR$/.idea/modules/Phoenixia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Phoenixia.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Phoenixia.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Phoenixia.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Phoenixia.test.iml" />
     </modules>
   </component>
 </project>
