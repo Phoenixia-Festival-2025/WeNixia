@@ -1,53 +1,59 @@
-// 📄 TimeTablePageClient.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { DayKey, timetableData } from '@/lib/timetableData';
-
+import { motion, AnimatePresence } from 'framer-motion';
 import TimeTableBanner from '@/components/timetable/TimeTableBanner';
 import TimeTableDaySelector from '@/components/timetable/TimeTableDaySelector';
 import TimeTableList from '@/components/timetable/TimeTableList';
-import { AnimatePresence, motion } from 'framer-motion';
+import { fetchTimetableByDate } from '@/api/getTimetable'; // 🔥 API 분리해서 가져오기
+
+import { TimeTableItem } from '@/lib/types/timetable'; // 🔥 타입 분리해서 가져오기
 
 const container = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.25,
-      delayChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.25, delayChildren: 0.1 },
   },
 };
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' },
-  },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
 };
 
 export default function TimeTablePageClient() {
-  const [selectedDate, setSelectedDate] = useState<DayKey>('25.05.07');
   const searchParams = useSearchParams();
-  const defaultDate = searchParams.get('date') as DayKey | null;
+  const [selectedDate, setSelectedDate] = useState('2025-05-07');
+  const [timetable, setTimetable] = useState<TimeTableItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadTimetable = async (date: string) => {
+    try {
+      setLoading(true);
+      const data = await fetchTimetableByDate(date);
+      setTimetable(data);
+    } catch (error) {
+      console.error(error);
+      setTimetable([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const today = new Date();
-    const todayString = today.toLocaleDateString('ko-KR', {
-      year: '2-digit',
-      month: '2-digit',
-      day: '2-digit',
-    }).replace(/\./g, '').trim().replace(/(\d{2})(\d{2})(\d{2})/, '20$1.$2.$3');
+    const defaultDate = searchParams.get('date');
+    const today = new Date().toISOString().split('T')[0];
 
-    if (defaultDate && timetableData[defaultDate]) {
-      setSelectedDate(defaultDate);
-    } else if (timetableData[todayString as DayKey]) {
-      setSelectedDate(todayString as DayKey);
-    }
-  }, [defaultDate]);
+    const initialDate = defaultDate || today;
+    setSelectedDate(initialDate);
+    loadTimetable(initialDate);
+  }, [searchParams]);
+
+  const handleDateChange = (newDate: string) => {
+    setSelectedDate(newDate);
+    loadTimetable(newDate);
+  };
 
   return (
     <motion.section
@@ -59,9 +65,11 @@ export default function TimeTablePageClient() {
       <motion.div variants={fadeInUp}>
         <TimeTableBanner />
       </motion.div>
+
       <motion.div variants={fadeInUp}>
-        <TimeTableDaySelector selectedDate={selectedDate} onSelect={setSelectedDate} />
+        <TimeTableDaySelector selectedDate={selectedDate} onSelect={handleDateChange} />
       </motion.div>
+
       <AnimatePresence mode="wait">
         <motion.div
           key={selectedDate}
@@ -70,7 +78,7 @@ export default function TimeTablePageClient() {
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.3 }}
         >
-          <TimeTableList selectedDate={selectedDate} />
+          <TimeTableList timetable={timetable} loading={loading} />
         </motion.div>
       </AnimatePresence>
     </motion.section>

@@ -4,11 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fc63ffe-d31a-453c-a624-0e1515684ca4" name="Changes" comment="" />
+    <list default="true" id="5fc63ffe-d31a-453c-a624-0e1515684ca4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/api/getBooth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/api/getFoodtruck.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/api/getNotice.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/api/getTimetable.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/app/booth/[type]/[id]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/lib/types/booth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/lib/types/foodtruck.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/lib/types/timetable.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/redux/modules/foodTruck.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/Phoenixia">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Phoenixia" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -33,21 +65,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Backend",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/simjuheun/Desktop/Team/WeNixia/Backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Backend&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/simjuheun/Desktop/Team/WeNixia/Backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration name="PhoenixiaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Phoenixia.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cloud.phoenixia.PhoenixiaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

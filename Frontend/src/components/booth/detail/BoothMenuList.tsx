@@ -1,6 +1,6 @@
 interface Menu {
   name: string;
-  price: string;
+  price: number | string; // <- number 허용
   imageUrl?: string;
 }
 
@@ -23,14 +23,16 @@ export default function BoothMenuList({ menus }: BoothMenuListProps) {
             {/* 텍스트 */}
             <div className="flex-1">
               <div className="text-gray-800 font-medium">{menu.name}</div>
-              <div className="text-gray-500 text-sm mt-0.5">{menu.price}</div>
+              <div className="text-gray-500 text-sm mt-0.5">
+                {typeof menu.price === 'number' ? `${menu.price}원` : menu.price}
+              </div>
             </div>
 
             {/* 이미지 */}
             {menu.imageUrl ? (
               <img
                 src={menu.imageUrl}
-                alt={menu.name}
+                alt={`${menu.name} 이미지`}
                 className="w-16 h-16 object-cover rounded-md ml-4"
               />
             ) : (

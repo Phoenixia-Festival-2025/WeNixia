@@ -1,9 +1,17 @@
-'use client';
-
 import Link from 'next/link';
-import { notices } from '@/lib/noticeData';
 
-export default function NoticeList() {
+interface Notice {
+  id: number;
+  title: string;
+  date: string;
+  content: string;
+}
+
+interface NoticeListProps {
+  notices: Notice[];
+}
+
+export default function NoticeList({ notices }: NoticeListProps) {
   return (
     <div className="space-y-3">
       {notices.map((notice) => (
