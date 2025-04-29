@@ -1,16 +1,44 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { notices } from '@/lib/noticeData';
-import NoticeDetail from '@/components/notice/NoticeDetail';
+import { motion } from 'framer-motion';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { motion } from 'framer-motion';
+import NoticeDetail from '@/components/notice/NoticeDetail';
+import { fetchNotices } from '@/api/getNotice'; // API 호출
+
+interface Notice {
+  id: number;
+  title: string;
+  date: string;
+  content: string;
+}
 
 export default function NoticeDetailPage() {
   const router = useRouter();
   const params = useParams();
   const id = Number(params.id);
+
+  const [notices, setNotices] = useState<Notice[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await fetchNotices();
+        setNotices(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, []);
+
+  if (loading) return <div className="p-4 text-center">로딩 중...</div>;
+
   const notice = notices.find((n) => n.id === id);
 
   if (!notice) {

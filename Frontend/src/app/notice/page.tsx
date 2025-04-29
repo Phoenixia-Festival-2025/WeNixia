@@ -1,10 +1,33 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import NoticeBanner from '@/components/notice/NoticeBanner';
 import NoticeList from '@/components/notice/NoticeList';
+import { fetchNotices } from '@/api/getNotice';
+import { motion } from 'framer-motion';
 
 export default function NoticePage() {
+  const [notices, setNotices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadNotices = async () => {
+      try {
+        const data = await fetchNotices();
+        setNotices(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadNotices();
+  }, []);
+
+  if (loading) {
+    return <div className="p-4 text-center">로딩 중...</div>;
+  }
+
   return (
     <motion.section
       className="p-4 space-y-6"
@@ -13,29 +36,16 @@ export default function NoticePage() {
       variants={{
         hidden: {},
         visible: {
-          transition: {
-            staggerChildren: 0.2,
-            delayChildren: 0.1,
-          },
+          transition: { staggerChildren: 0.2, delayChildren: 0.1 },
         },
       }}
     >
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, y: -20 },
-          visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-        }}
-      >
+      <motion.div>
         <NoticeBanner />
       </motion.div>
 
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, y: 10 },
-          visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-        }}
-      >
-        <NoticeList />
+      <motion.div>
+        <NoticeList notices={notices} />
       </motion.div>
     </motion.section>
   );

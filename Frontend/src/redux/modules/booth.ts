@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Booth } from '@/lib/boothData';
+import { Booth } from '@/lib/types/booth'; // ✅ 수정
 
 interface BoothState {
   booths: Booth[];
