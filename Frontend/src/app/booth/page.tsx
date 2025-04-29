@@ -6,7 +6,6 @@ import BoothBanner from '@/components/booth/BoothBanner';
 import BoothMap from '@/components/booth/BoothMap';
 import BoothCategorySelector from '@/components/booth/BoothCategorySelector';
 import BoothCard from '@/components/booth/BoothCard';
-import FoodTruckCard from '@/components/booth/FoodTruckCard'; // 🆕 추가
 import { Booth } from '@/lib/types/booth'; // 타입 정리
 import { FoodTruck } from '@/lib/types/foodtruck'; // 타입 정리
 import { fetchBooths } from '@/api/getBooth'; // api 함수
