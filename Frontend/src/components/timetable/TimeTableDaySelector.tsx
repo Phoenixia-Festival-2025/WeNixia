@@ -1,10 +1,23 @@
-import { DayKey, days } from '@/lib/timetableData';
+'use client';
+
 import { motion } from 'framer-motion';
 
-interface Props {
-  selectedDate: DayKey;
-  onSelect: (date: DayKey) => void;
+interface Day {
+  label: string; // "DAY 1", "DAY 2" 이런 식
+  date: string;  // "2025-05-07" 이런 형식
 }
+
+interface Props {
+  selectedDate: string;
+  onSelect: (date: string) => void;
+}
+
+// 날짜 목록 (★ 필요하면 여기서 날짜 추가하면 됨)
+const days: Day[] = [
+  { label: 'DAY 1', date: '2025-05-07' },
+  { label: 'DAY 2', date: '2025-05-08' },
+  { label: 'DAY 3', date: '2025-05-09' },
+];
 
 export default function TimeTableDaySelector({ selectedDate, onSelect }: Props) {
   return (

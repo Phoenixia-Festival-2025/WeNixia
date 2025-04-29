@@ -1,16 +1,42 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { notices } from '@/lib/noticeData';
+import { fetchNotices } from '@/api/getNotice';
 import { Megaphone } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+interface Notice {
+  id: number;
+  title: string;
+  date: string;
+  content: string;
+}
+
 export default function MiniNotice() {
   const router = useRouter();
+  const [notices, setNotices] = useState<Notice[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadNotices = async () => {
+      try {
+        const data = await fetchNotices();
+        setNotices(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadNotices();
+  }, []);
+
+  if (loading) return null;
 
   return (
     <section className="px-4 mt-8">
-      {/* 제목 영역 */}
+      {/* 제목 */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="flex items-center gap-2 text-lg font-bold text-gray-800">
           <Megaphone className="w-5 h-5 text-black-500" />
