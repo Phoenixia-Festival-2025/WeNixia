@@ -6,14 +6,21 @@ import NoticeList from '@/components/notice/NoticeList';
 import { fetchNotices } from '@/api/getNotice';
 import { motion } from 'framer-motion';
 
+interface Notice {
+  id: number;
+  title: string;
+  date: string;
+  content: string;
+}
+
 export default function NoticePage() {
-  const [notices, setNotices] = useState([]);
+  const [notices, setNotices] = useState<Notice[]>([]); // ✅ 타입 명시
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadNotices = async () => {
       try {
-        const data = await fetchNotices();
+        const data: Notice[] = await fetchNotices();
         setNotices(data);
       } catch (error) {
         console.error(error);
