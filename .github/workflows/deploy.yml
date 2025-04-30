@@ -51,4 +51,4 @@ jobs:
             sleep 3  # 컨테이너가 너무 빨리 종료되는 것 방지
 
       - name: Log Booth.java
-        run: cat src/main/java/com/cloud/phoenixia/domain/booth/Booth.java
+        run: cat src/main/java/com/cloud/phoenixia/model/Booth.java
