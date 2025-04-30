@@ -13,9 +13,15 @@ interface LineupInfo {
 }
 
 const lineup: LineupInfo[] = [
-  { src: '/lineup/sing1.jpg', name: 'G-Dragon', time: '5월 7일 19:00' },
-  { src: '/lineup/sing2.jpg', name: '아이유', time: '5월 8일 20:00' },
-  { src: '/lineup/sing3.jpg', name: 'NMIXX', time: '5월 9일 18:30' },
+  { src: '/lineup/윤마치.jpg', name: '윤마치', time: '5월 7일 20:00' },
+  { src: '/lineup/권은비.jpg', name: '권은비', time: '5월 7일 20:40' },
+  { src: '/lineup/윤도현밴드.jpg', name: 'YB', time: '5월 7일 21:25' },
+  { src: '/lineup/호미들.jpg', name: '호미들', time: '5월 8일 20:15' },
+  { src: '/lineup/애쉬아일랜드.jpg', name: 'ASH ISLAND', time: '5월 7일 20:50' },
+  { src: '/lineup/스패셜게스트.jpg', name: 'SPECIAL GUEST', time: '5월 7일 21:25' },
+  { src: '/lineup/로이킴.jpg', name: '로이킴', time: '5월 9일 20:00' },
+  { src: '/lineup/다비치.jpg', name: '다비치', time: '5월 9일 20:40' },
+  { src: '/lineup/루시.jpg', name: 'LUCY', time: '5월 9일 21:25' },
 ];
 
 export default function Banner() {
