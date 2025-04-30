@@ -6,6 +6,7 @@ import Banner from '@/components/main/Banner';
 import FestivalSummary from '@/components/main/FestivalSummary';
 import MiniNotice from '@/components/main/MiniNotice';
 import CurrentTimeBlock from '@/components/main/CurrentTimeBlock';
+import DeveloperFooter from '@/components/main/DeveloperFooter';
 
 const container = {
   hidden: {},
@@ -27,7 +28,7 @@ const fadeInUp = {
 };
 
 export default function HomePage() {
-  const [today, setToday] = useState<string>('2025-05-07');
+  const [today, setToday] = useState<string>('');
   const [currentTime, setCurrentTime] = useState<string>('');
 
   useEffect(() => {
@@ -58,9 +59,11 @@ export default function HomePage() {
         <Banner />
       </motion.div>
 
-      <motion.div variants={fadeInUp}>
-        <CurrentTimeBlock date={today} testTime={currentTime} />
-      </motion.div>
+      {today && (
+        <motion.div variants={fadeInUp}>
+          <CurrentTimeBlock date={today} testTime={currentTime} />
+        </motion.div>
+      )}
 
       <motion.div variants={fadeInUp}>
         <FestivalSummary />
@@ -68,6 +71,10 @@ export default function HomePage() {
 
       <motion.div variants={fadeInUp}>
         <MiniNotice />
+      </motion.div>
+
+      <motion.div variants={fadeInUp}>
+        <DeveloperFooter />
       </motion.div>
     </motion.section>
   );
