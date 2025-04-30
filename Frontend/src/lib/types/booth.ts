@@ -3,4 +3,5 @@ export interface Booth {
   name: string;
   description: string;
   status: string;
+  locationNumber: number;
 }

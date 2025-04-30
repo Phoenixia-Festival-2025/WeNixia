@@ -14,7 +14,7 @@ export default function DeveloperFooter() {
           className="flex items-center gap-2 hover:text-blue-500 transition-colors"
         >
           <Github size={18} />
-          <span>CSE 김정훈 [프론트엔드]</span>
+          <span>CSE 김정훈 <br/>[프론트엔드]</span>
         </a>
 
         {/* 백엔드 */}
@@ -25,7 +25,7 @@ export default function DeveloperFooter() {
           className="flex items-center gap-2 hover:text-blue-500 transition-colors"
         >
           <Github size={18} />
-          <span>CSE 심주흔 [백엔드]</span>
+          <span>CSE 심주흔 <br/>[백엔드]</span>
         </a>
       </div>
 
