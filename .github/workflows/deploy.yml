@@ -40,6 +40,7 @@ jobs:
 
       - name: Run remote deploy commands
         uses: appleboy/ssh-action@v1.0.3
+        continue-on-error: true
         with:
           host: 43.200.163.118
           username: ubuntu
