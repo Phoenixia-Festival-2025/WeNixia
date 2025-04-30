@@ -12,6 +12,8 @@ import { fetchFoodTrucks } from '@/api/getFoodtruck'; // api 함수
 import { useAppDispatch } from '@/redux/hooks';
 import { setBooths } from '@/redux/modules/booth';
 import { setFoodTrucks } from '@/redux/modules/foodTruck';
+import { FleaMarket } from '@/lib/types/fleamarket';
+import { fetchFleaMarkets } from '@/api/getFleaMarket';
 
 const categories = ['전체', '동아리 부스', '푸드트럭', '플리마켓'] as const;
 
@@ -35,16 +37,19 @@ export default function BoothPage() {
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [boothList, setBoothList] = useState<Booth[]>([]);
   const [foodTruckList, setFoodTruckList] = useState<FoodTruck[]>([]);
+  const [fleaMarketList, setFleaMarketList] = useState<FleaMarket[]>([]);
 
   useEffect(() => {
     async function loadData() {
       const booths = await fetchBooths();
       const foodtrucks = await fetchFoodTrucks();
+      const fleamarkets = await fetchFleaMarkets();
   
       setBoothList(booths);
       setFoodTruckList(foodtrucks);
+      setFleaMarketList(fleamarkets);
   
-      dispatch(setBooths(booths)); // (혹시 부스만 Redux에 저장하는 경우)
+      dispatch(setBooths(booths));
       dispatch(setFoodTrucks(foodtrucks));
     }
     loadData();
@@ -92,6 +97,17 @@ export default function BoothPage() {
               />
             </motion.div>
           ))}
+          {fleaMarketList.map((market) => (
+            <motion.div key={`flea-${market.id}`} variants={itemVariants}>
+              <BoothCard
+                id={market.id}
+                name={market.title}
+                description={market.description}
+                status={market.status}
+                type="flea"
+              />
+            </motion.div>
+          ))}
         </>
       );
     }
@@ -105,6 +121,20 @@ export default function BoothPage() {
             description={booth.description}
             status={booth.status}
             type="club"
+          />
+        </motion.div>
+      ));
+    }
+
+    if (selectedCategory === '플리마켓') {
+      return fleaMarketList.map((market) => (
+        <motion.div key={`flea-${market.id}`} variants={itemVariants}>
+          <BoothCard
+            id={market.id}
+            name={market.title}
+            description={market.description}
+            status={market.status}
+            type="flea"
           />
         </motion.div>
       ));
