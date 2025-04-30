@@ -9,5 +9,8 @@ export async function fetchNotices() {
     throw new Error('공지사항 데이터를 가져오는데 실패했습니다.');
   }
 
-  return res.json();
+  const data = await res.json();
+
+  // id 기준 내림차순 정렬 (최신 공지가 위로)
+  return data.sort((a: any, b: any) => b.id - a.id);
 }
