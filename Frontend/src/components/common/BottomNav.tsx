@@ -8,20 +8,20 @@ export default function BottomNav() {
   const router = useRouter();
 
   const navItems = [
-    { label: '홈', icon: <Home size={20} />, path: '/' },
     { label: '타임테이블', icon: <CalendarCheck size={20} />, path: '/timetable' },
+    { label: '홈', icon: <Home size={20} />, path: '/' },
     { label: '부스', icon: <Map size={20} />, path: '/booth' },
   ];
 
   return (
-    <nav className="fixed bottom-0 z-50 w-full h-[72px] bg-white border-t border-gray-100 flex justify-around items-center">
+    <nav className="fixed bottom-0 z-50 w-full h-[72px] bg-white border-t border-gray-100 flex">
       {navItems.map((item) => {
         const isActive = pathname === item.path;
         return (
           <button
             key={item.path}
             onClick={() => router.push(item.path)}
-            className={`flex flex-col items-center text-xs ${
+            className={`flex flex-col items-center justify-center flex-1 text-xs ${
               isActive ? 'text-blue-600 font-bold' : 'text-gray-500'
             }`}
           >
