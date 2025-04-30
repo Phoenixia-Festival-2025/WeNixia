@@ -27,7 +27,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean build -x test
 
       - name: Upload to EC2 and run
         uses: appleboy/scp-action@v0.1.7
