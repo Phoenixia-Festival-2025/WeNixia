@@ -15,7 +15,7 @@ spring:
 
 server:
   port: 8080
-  address: 0.0.0.0
+  address: 127.0.0.1
   tomcat:
     protocol-header: x-forwarded-proto
     remote-ip-header: x-forwarded-for
