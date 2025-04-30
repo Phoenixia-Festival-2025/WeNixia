@@ -45,7 +45,14 @@ export default function TimeTablePageClient() {
     const defaultDate = searchParams.get('date');
     const today = new Date().toISOString().split('T')[0];
 
-    const initialDate = defaultDate || today;
+    // 날짜 목록에 포함된 날짜인지 확인
+    const validDates = ['2025-05-07', '2025-05-08', '2025-05-09'];
+    const fallbackDate = '2025-05-07';
+
+    const initialDate = validDates.includes(defaultDate || today)
+      ? (defaultDate || today)
+      : fallbackDate;
+
     setSelectedDate(initialDate);
     loadTimetable(initialDate);
   }, [searchParams]);

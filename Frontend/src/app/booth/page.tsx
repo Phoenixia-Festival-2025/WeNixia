@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import BoothBanner from '@/components/booth/BoothBanner';
-import BoothMap from '@/components/booth/BoothMap';
 import BoothCategorySelector from '@/components/booth/BoothCategorySelector';
 import BoothCard from '@/components/booth/BoothCard';
 import { Booth } from '@/lib/types/booth'; // 타입 정리
@@ -128,9 +127,6 @@ export default function BoothPage() {
     >
       <motion.div variants={itemVariants}>
         <BoothBanner />
-      </motion.div>
-      <motion.div variants={itemVariants}>
-        <BoothMap />
       </motion.div>
       <motion.div variants={itemVariants}>
         <BoothCategorySelector

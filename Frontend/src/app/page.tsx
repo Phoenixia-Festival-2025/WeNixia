@@ -1,7 +1,6 @@
-// HomePage.tsx
-
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Banner from '@/components/main/Banner';
 import FestivalSummary from '@/components/main/FestivalSummary';
@@ -12,8 +11,8 @@ const container = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.3, // 자식 요소 등장 간격
-      delayChildren: 0.2,   // 첫 자식 요소 딜레이
+      staggerChildren: 0.3,
+      delayChildren: 0.2,
     },
   },
 };
@@ -28,6 +27,26 @@ const fadeInUp = {
 };
 
 export default function HomePage() {
+  const [today, setToday] = useState<string>('2025-05-07');
+  const [currentTime, setCurrentTime] = useState<string>('');
+
+  useEffect(() => {
+    const now = new Date();
+
+    // 날짜 포맷: '2025-05-07'
+    const formattedDate = now.toISOString().split('T')[0];
+
+    // 시간 포맷: 'HH:MM'
+    const timeStr = now.toLocaleTimeString('ko-KR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+
+    setToday(formattedDate);
+    setCurrentTime(timeStr);
+  }, []);
+
   return (
     <motion.section
       className="p-4 space-y-6"
@@ -38,12 +57,15 @@ export default function HomePage() {
       <motion.div variants={fadeInUp}>
         <Banner />
       </motion.div>
+
+      <motion.div variants={fadeInUp}>
+        <CurrentTimeBlock date={today} testTime={currentTime} />
+      </motion.div>
+
       <motion.div variants={fadeInUp}>
         <FestivalSummary />
       </motion.div>
-      <motion.div variants={fadeInUp}>
-        <CurrentTimeBlock date="25.05.08" testTime="16:00" />
-      </motion.div>
+
       <motion.div variants={fadeInUp}>
         <MiniNotice />
       </motion.div>
