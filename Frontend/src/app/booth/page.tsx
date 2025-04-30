@@ -15,7 +15,7 @@ import { setFoodTrucks } from '@/redux/modules/foodTruck';
 import { FleaMarket } from '@/lib/types/fleamarket';
 import { fetchFleaMarkets } from '@/api/getFleaMarket';
 
-const categories = ['전체', '동아리 부스', '푸드트럭', '플리마켓'] as const;
+const categories = ['전체', '동아리 / 부스', '푸드트럭', '플리마켓'] as const;
 
 const containerVariants = {
   hidden: {},
@@ -112,7 +112,7 @@ export default function BoothPage() {
       );
     }
   
-    if (selectedCategory === '동아리 부스') {
+    if (selectedCategory === '동아리 / 부스') {
       return boothList.map((booth) => (
         <motion.div key={`club-${booth.id}`} variants={itemVariants}>
           <BoothCard
