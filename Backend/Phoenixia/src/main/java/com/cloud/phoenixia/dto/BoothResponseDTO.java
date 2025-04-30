@@ -12,4 +12,7 @@ public class BoothResponseDTO {
     private String name;
     private String description;
     private BoothStatus status;
+
+    // ✅ 추가
+    private int locationNumber;
 }

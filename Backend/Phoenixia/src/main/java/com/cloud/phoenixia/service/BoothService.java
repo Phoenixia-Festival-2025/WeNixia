@@ -22,6 +22,7 @@ public class BoothService {
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .status(BoothStatus.valueOf(dto.getStatus()))
+                .locationNumber(dto.getLocationNumber()) // ✅ 추가
                 .build();
         return boothRepository.save(booth);
     }
@@ -44,6 +45,7 @@ public class BoothService {
                     booth.setName(dto.getName());
                     booth.setDescription(dto.getDescription());
                     booth.setStatus(BoothStatus.valueOf(dto.getStatus()));
+                    booth.setLocationNumber(dto.getLocationNumber()); // ✅ 추가
                     return convertToDTO(boothRepository.save(booth));
                 })
                 .orElseThrow(() -> new IllegalArgumentException("Booth not found"));
@@ -60,6 +62,7 @@ public class BoothService {
                 .name(booth.getName())
                 .description(booth.getDescription())
                 .status(booth.getStatus())
+                .locationNumber(booth.getLocationNumber()) // ✅ 추가
                 .build();
     }
 }
