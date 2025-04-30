@@ -21,4 +21,8 @@ public class Booth {
 
     @Enumerated(EnumType.STRING)
     private BoothStatus status;
+
+    // ✅ 부스 위치 번호 추가
+    @Column(nullable = false)
+    private int locationNumber;
 }
