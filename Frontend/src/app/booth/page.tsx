@@ -72,44 +72,44 @@ export default function BoothPage() {
     }
   
     if (selectedCategory === '전체') {
-      return (
-        <>
-          {boothList.map((booth) => (
-            <motion.div key={`club-${booth.id}`} variants={itemVariants}>
-              <BoothCard
-                id={booth.id}
-                name={booth.name}
-                description={booth.description}
-                status={booth.status}
-                type="club"
-              />
-            </motion.div>
-          ))}
-          {foodTruckList.map((truck) => (
-            <motion.div key={`foodtruck-${truck.id}`} variants={itemVariants}>
-              <BoothCard
-                id={truck.id}
-                name={truck.name}
-                description={truck.description}
-                status={truck.status}
-                imageUrl={truck.menuItems[0]?.imageUrl}
-                type="foodtruck"
-              />
-            </motion.div>
-          ))}
-          {fleaMarketList.map((market) => (
-            <motion.div key={`flea-${market.id}`} variants={itemVariants}>
-              <BoothCard
-                id={market.id}
-                name={market.title}
-                description={market.description}
-                status={market.status}
-                type="flea"
-              />
-            </motion.div>
-          ))}
-        </>
-      );
+      const merged = [
+        ...boothList.map((booth) => ({
+          id: booth.id,
+          name: booth.name,
+          description: booth.description,
+          type: 'club' as const,
+          imageUrl: undefined,
+        })),
+        ...foodTruckList.map((truck) => ({
+          id: truck.id,
+          name: truck.name,
+          description: truck.description,
+          type: 'foodtruck' as const,
+          imageUrl: truck.menuItems[0]?.imageUrl,
+        })),
+        ...fleaMarketList.map((market) => ({
+          id: market.id,
+          name: market.title,
+          description: market.description,
+          type: 'flea' as const,
+          imageUrl: undefined,
+        })),
+      ];
+    
+      const sorted = merged.sort((a, b) => a.name.localeCompare(b.name));
+    
+      return sorted.map((item) => (
+        <motion.div key={`${item.type}-${item.id}`} variants={itemVariants}>
+          <BoothCard
+            id={item.id}
+            name={item.name}
+            description={item.description}
+            imageUrl={item.imageUrl}
+            type={item.type}
+            status="" // status는 필요 없어졌으므로 빈 문자열 또는 제거
+          />
+        </motion.div>
+      ));
     }
   
     if (selectedCategory === '동아리 / 부스') {

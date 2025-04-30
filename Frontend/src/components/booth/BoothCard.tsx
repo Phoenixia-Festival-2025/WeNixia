@@ -11,15 +11,21 @@ interface CommonBoothCardProps {
   type: 'club' | 'foodtruck' | 'flea'; // 타입 추가 (어디로 이동할지 구분)
 }
 
+const typeLabelMap: Record<CommonBoothCardProps['type'], string> = {
+  foodtruck: '푸드트럭',
+  club: '동아리/부스',
+  flea: '플리마켓',
+};
+
 export default function BoothCard({
   id,
   name,
   description,
-  status,
   imageUrl,
   type,
 }: CommonBoothCardProps) {
   const router = useRouter();
+  const label = typeLabelMap[type];
 
   return (
     <div
@@ -27,7 +33,7 @@ export default function BoothCard({
       className="flex items-center p-4 bg-white rounded-xl shadow-md border hover:shadow-lg transition cursor-pointer"
     >
       <div className="flex-1">
-        <div className="text-xs text-gray-400 mb-1">{status}</div>
+        <div className="text-xs text-blue-500 font-semibold mb-1">{label}</div>
         <div className="text-base font-bold">{name}</div>
         <div className="text-sm text-gray-600 line-clamp-2">{description}</div>
       </div>
