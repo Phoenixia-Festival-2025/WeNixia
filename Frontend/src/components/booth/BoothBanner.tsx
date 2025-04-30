@@ -1,18 +1,59 @@
 'use client';
 
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
 export default function BoothBanner() {
+  const [showDetails, setShowDetails] = useState(false);
+
   return (
-    <div className="w-full flex justify-center">
-      <Zoom>
-        <img
-          src="/assets/전체배치도.jpg"
-          alt="부스 전체 배치도"
-          className="max-w-full h-auto rounded-md"
-        />
-      </Zoom>
+    <div className="space-y-4">
+      {/* 전체 배치도 */}
+      <div className="relative w-full flex justify-center">
+        <Zoom>
+          <img
+            src="/assets/전체배치도.jpg"
+            alt="부스 전체 배치도"
+            className="max-w-full h-auto rounded-md"
+          />
+        </Zoom>
+        <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-md pointer-events-none">
+          클릭하여 확대
+        </div>
+      </div>
+
+      {/* 토글 버튼 */}
+      <div className="flex justify-center">
+        <button
+          onClick={() => setShowDetails((prev) => !prev)}
+          className="text-sm px-4 py-2 bg-blue-500 text-white rounded-md shadow-md"
+        >
+          {showDetails ? '부스 설명 접기' : '부스 번호 설명 보기'}
+        </button>
+      </div>
+
+      {/* 부스 번호 설명 이미지 */}
+      <AnimatePresence>
+        {showDetails && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.4 }}
+            className="overflow-hidden flex justify-center"
+          >
+            <Zoom>
+              <img
+                src="/assets/부스안내.jpg"
+                alt="부스 번호 설명"
+                className="max-w-full h-auto rounded-md"
+              />
+            </Zoom>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

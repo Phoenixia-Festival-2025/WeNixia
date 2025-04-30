@@ -44,7 +44,7 @@ export default function NoticePage() {
         <NoticeBanner />
       </motion.div>
 
-      <motion.div>
+      <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
         <NoticeList notices={notices} />
       </motion.div>
     </motion.section>

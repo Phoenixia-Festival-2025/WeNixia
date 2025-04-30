@@ -13,7 +13,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { setBooths } from '@/redux/modules/booth';
 import { setFoodTrucks } from '@/redux/modules/foodTruck';
 
-const categories = ['전체', '동아리 부스', '푸드트럭', '편의시설'] as const;
+const categories = ['전체', '동아리 부스', '푸드트럭', '플리마켓'] as const;
 
 const containerVariants = {
   hidden: {},

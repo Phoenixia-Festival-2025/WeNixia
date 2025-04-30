@@ -17,7 +17,7 @@ export default function BoothCategorySelector({
           onClick={() => onSelect(cat)}
           className={`px-4 py-2 rounded-full border font-medium text-sm text-center transition ${
             selected === cat
-              ? 'bg-orange-500 text-white'
+              ? 'bg-blue-500 text-white'
               : 'bg-gray-100 text-gray-600'
           }`}
         >

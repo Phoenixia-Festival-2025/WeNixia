@@ -60,7 +60,7 @@ export default function BoothDetailPage() {
       {/* 상단 바 */}
       <div className="bg-white h-14 flex items-center px-4 shadow-sm border-b">
         <IconButton onClick={() => router.back()} size="small">
-          <ArrowBackIcon className="text-orange-500" />
+          <ArrowBackIcon className="text-blue-500" />
         </IconButton>
         <div className="flex-1 text-center pr-10">
           <span className="text-base font-bold text-gray-800">부스 상세</span>
@@ -96,7 +96,7 @@ export default function BoothDetailPage() {
             hidden: { opacity: 0, x: -20 },
             visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
           }}
-          className="bg-indigo-50 rounded-xl p-4 shadow-sm"
+          className="bg-blue-50 rounded-xl p-4 shadow-sm"
         >
           <BoothDescription name={name} description={description} />
         </motion.div>

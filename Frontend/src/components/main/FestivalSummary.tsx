@@ -58,12 +58,12 @@ export default function FestivalSummary() {
           <button
             key={index}
             onClick={() => handleSelect(index)}
-            className={`aspect-square border rounded-xl shadow-sm bg-indigo-50 p-4 flex flex-col items-center justify-center transition-all duration-300 ${
-              selectedIndex === index ? 'scale-105 border-indigo-500' : 'hover:scale-105 border-indigo-50'
+            className={`aspect-square border rounded-xl shadow-sm bg-blue-50 p-4 flex flex-col items-center justify-center transition-all duration-300 ${
+              selectedIndex === index ? 'scale-105 border-blue-500' : 'hover:scale-105 border-blue-50'
             }`}
           >
-            <div className="text-lg font-semibold text-indigo-600">{day.day}</div>
-            <div className="text-sm text-gray-500 mt-1">{day.date}</div>
+            <div className="text-lg font-semibold text-blue-600">{day.day}</div>
+            <div className="text-xs text-gray-500 mt-1">{day.date}</div>
           </button>
         ))}
       </div>

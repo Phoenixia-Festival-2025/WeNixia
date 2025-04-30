@@ -57,7 +57,7 @@ export default function MiniNotice() {
             key={notice.id}
             onClick={() => router.push(`/notice/${notice.id}`)}
             whileHover={{ scale: 1.02 }}
-            className="cursor-pointer bg-indigo-50 border border-indigo-100 rounded-xl p-3 shadow-sm transition flex items-center gap-2"
+            className="cursor-pointer bg-blue-50 border border-blue-100 rounded-xl p-3 shadow-sm transition flex items-center gap-2"
           >
             <span className="text-sm text-gray-800">{notice.title}</span>
           </motion.div>
