@@ -50,7 +50,7 @@ export default function Banner() {
         loop
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
         autoplay={{
-          delay: 4000,
+          delay: 2000,
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         }}
