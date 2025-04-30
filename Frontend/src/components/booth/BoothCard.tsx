@@ -8,7 +8,7 @@ interface CommonBoothCardProps {
   description: string;
   status: string;
   imageUrl?: string; // 선택사항: foodtruck은 menu에서 가져옴
-  type: 'club' | 'foodtruck'; // 타입 추가 (어디로 이동할지 구분)
+  type: 'club' | 'foodtruck' | 'flea'; // 타입 추가 (어디로 이동할지 구분)
 }
 
 export default function BoothCard({
