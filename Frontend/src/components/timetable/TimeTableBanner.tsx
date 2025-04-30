@@ -1,7 +1,11 @@
 export default function TimeTableBanner() {
   return (
-    <div className="w-full h-40 bg-blue-300 rounded-md flex items-center justify-center text-white text-lg font-bold">
-      타임테이블 안내 배너
+    <div className="w-full flex justify-center">
+      <img
+        src="/assets/위닉시아배너.jpg"
+        alt="배너 이미지"
+        className="max-w-full h-auto rounded-md"
+      />
     </div>
   );
 }
