@@ -35,7 +35,7 @@ jobs:
           host: 43.200.163.118
           username: ubuntu
           key: ${{ secrets.EC2_PRIVATE_KEY }}
-          source: build/libs/*.jar
+          source: Backend/Phoenixia/build/libs/*.jar
           target: /home/ubuntu/
 
       - name: Run remote deploy commands
