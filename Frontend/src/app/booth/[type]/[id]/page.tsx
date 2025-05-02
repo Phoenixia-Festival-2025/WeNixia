@@ -86,10 +86,16 @@ export default function BoothDetailPage() {
         }}
       >
         <motion.div
-          variants={{ hidden: { opacity: 0, y: -20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+          variants={{
+            hidden: { opacity: 0, y: -20 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+          }}
           className="rounded-xl overflow-hidden shadow-md"
         >
-          <BoothImage src="/placeholder.jpg" alt={name} />
+          <BoothImage
+            src={booth?.imageUrl as string}
+            alt={name}
+          />
         </motion.div>
 
         <motion.div

@@ -4,4 +4,5 @@ export interface Booth {
   description: string;
   status: string;
   locationNumber: number;
+  imageUrl : string;
 }
