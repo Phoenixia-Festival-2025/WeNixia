@@ -14,4 +14,6 @@ public class BoothRequestDTO {
 
     // ✅ 추가
     private int locationNumber;
+
+    private String imageUrl; // ✅ optional 필드
 }

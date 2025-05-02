@@ -23,6 +23,7 @@ public class BoothService {
                 .description(dto.getDescription())
                 .status(BoothStatus.valueOf(dto.getStatus()))
                 .locationNumber(dto.getLocationNumber()) // ✅ 추가
+                .imageUrl(dto.getImageUrl() != null ? dto.getImageUrl() : "https://phoenixia-static-assets.s3.ap-northeast-2.amazonaws.com/default.png") // ✅ 기본 이미지
                 .build();
         return boothRepository.save(booth);
     }
@@ -45,7 +46,15 @@ public class BoothService {
                     booth.setName(dto.getName());
                     booth.setDescription(dto.getDescription());
                     booth.setStatus(BoothStatus.valueOf(dto.getStatus()));
-                    booth.setLocationNumber(dto.getLocationNumber()); // ✅ 추가
+                    booth.setLocationNumber(dto.getLocationNumber());
+
+                    // ✅ imageUrl 처리 로직
+                    String imageUrl = dto.getImageUrl();
+                    if (imageUrl == null || imageUrl.trim().isEmpty()) {
+                        imageUrl = "https://phoenixia-static-assets.s3.ap-northeast-2.amazonaws.com/default.png";
+                    }
+                    booth.setImageUrl(imageUrl);
+
                     return convertToDTO(boothRepository.save(booth));
                 })
                 .orElseThrow(() -> new IllegalArgumentException("Booth not found"));
@@ -57,12 +66,18 @@ public class BoothService {
     }
 
     private BoothResponseDTO convertToDTO(Booth booth) {
+        String imageUrl = booth.getImageUrl();
+        if (imageUrl == null || imageUrl.trim().isEmpty()) {
+            imageUrl = "https://phoenixia-static-assets.s3.ap-northeast-2.amazonaws.com/default.png";
+        }
+
         return BoothResponseDTO.builder()
                 .id(booth.getId())
                 .name(booth.getName())
                 .description(booth.getDescription())
                 .status(booth.getStatus())
-                .locationNumber(booth.getLocationNumber()) // ✅ 추가
+                .locationNumber(booth.getLocationNumber())
+                .imageUrl(imageUrl)
                 .build();
     }
 }
