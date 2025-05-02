@@ -1,4 +1,4 @@
-import { Github } from 'lucide-react';
+import { Github, Instagram } from 'lucide-react';
 
 export default function DeveloperFooter() {
   return (
@@ -11,7 +11,7 @@ export default function DeveloperFooter() {
           href="https://github.com/jeong011010"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 hover:text-blue-500 transition-colors"
+          className="flex items-center gap-2 hover:text-blue-500 transition-colors text-center"
         >
           <Github size={18} />
           <span>CSE 김정훈 <br/>[프론트엔드]</span>
@@ -22,10 +22,23 @@ export default function DeveloperFooter() {
           href="https://github.com/tejava7177"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 hover:text-blue-500 transition-colors"
+          className="flex items-center gap-2 hover:text-blue-500 transition-colors text-center"
         >
           <Github size={18} />
           <span>CSE 심주흔 <br/>[백엔드]</span>
+        </a>
+      </div>
+
+      {/* 인스타그램 링크 */}
+      <div className="flex justify-center items-center gap-2 mb-3">
+        <Instagram size={18} className="text-pink-500" />
+        <a
+          href="https://www.instagram.com/9oormthon_univ_schu/" // 👈 여기에 실제 인스타 링크 넣기
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-gray-600 hover:text-pink-500 transition-colors"
+        >
+          @9oormthon_univ_schu
         </a>
       </div>
 

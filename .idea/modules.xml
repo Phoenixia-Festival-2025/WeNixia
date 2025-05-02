@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< Updated upstream
       <module fileurl="file://$PROJECT_DIR$/.idea/WeNixia.iml" filepath="$PROJECT_DIR$/.idea/WeNixia.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Phoenixia.iml" filepath="$PROJECT_DIR$/.idea/modules/Phoenixia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Phoenixia.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Phoenixia.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Phoenixia.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Phoenixia.test.iml" />
+>>>>>>> Stashed changes
     </modules>
   </component>
 </project>
