@@ -11,7 +11,7 @@ export default function BoothImage({ src, alt }: BoothImageProps) {
   console.log(src);
   
   return (
-    <div className="w-full h-78 relative bg-gray-100 rounded-md overflow-hidden">
+    <div className="w-full h-60 relative bg-gray-100 rounded-md overflow-hidden">
       <Image
         src={src}
         alt={alt}
