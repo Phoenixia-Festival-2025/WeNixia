@@ -35,15 +35,20 @@ public class BoothService {
 
         // ✅ 포스터 저장
         if (dto.getPosterUrls() != null && !dto.getPosterUrls().isEmpty()) {
-            List<BoothPoster> posters = new ArrayList<>();
-            for (String url : dto.getPosterUrls()) {
-                posters.add(BoothPoster.builder()
-                        .imageUrl(url)
-                        .booth(saved)
-                        .build());
-            }
+            List<BoothPoster> posters = dto.getPosterUrls().stream()
+                    .filter(url -> url != null && !url.trim().isEmpty()) // 💡 null 방지
+                    .map(url -> {
+                        BoothPoster poster = BoothPoster.builder()
+                                .imageUrl(url)
+                                .booth(saved)
+                                .build();
+                        System.out.println("🎨 저장할 포스터 URL: " + poster.getImageUrl()); // ✅ 로깅
+                        return poster;
+                    })
+                    .toList();
+
             boothPosterRepository.saveAll(posters);
-            saved.setPosters(posters); // optional
+            saved.setPosters(posters); // optional, 단방향만 쓰는 경우 생략 가능
         }
 
         return saved;
@@ -103,9 +108,11 @@ public class BoothService {
             imageUrl = "https://phoenixia-static-assets.s3.ap-northeast-2.amazonaws.com/default.png";
         }
 
-        List<String> posterUrls = booth.getPosters() != null
-                ? booth.getPosters().stream().map(BoothPoster::getImageUrl).toList()
-                : List.of();
+        List<String> posterUrls = booth.getPosters() != null ?
+                booth.getPosters().stream()
+                        .map(BoothPoster::getImageUrl)
+                        .toList()
+                : new ArrayList<>();
 
         return BoothResponseDTO.builder()
                 .id(booth.getId())
@@ -114,7 +121,7 @@ public class BoothService {
                 .status(booth.getStatus())
                 .locationNumber(booth.getLocationNumber())
                 .imageUrl(imageUrl)
-                .posterUrls(posterUrls) // ✅ 포스터 포함
+                .posterUrls(posterUrls)  // ✅ 추가
                 .build();
     }
 }

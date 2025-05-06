@@ -33,6 +33,7 @@ public class Booth {
     @Column(nullable = true)
     private String imageUrl;
 
-    @OneToMany(mappedBy = "booth", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    @OneToMany(mappedBy = "booth", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoothPoster> posters = new ArrayList<>();
 }
