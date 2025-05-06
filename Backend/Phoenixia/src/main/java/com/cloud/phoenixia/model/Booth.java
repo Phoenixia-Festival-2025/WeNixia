@@ -2,6 +2,9 @@ package com.cloud.phoenixia.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
+import java.util.ArrayList;
+
 
 @Entity
 @Getter
@@ -29,4 +32,7 @@ public class Booth {
 
     @Column(nullable = true)
     private String imageUrl;
+
+    @OneToMany(mappedBy = "booth", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BoothPoster> posters = new ArrayList<>();
 }
