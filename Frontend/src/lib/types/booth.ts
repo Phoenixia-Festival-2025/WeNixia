@@ -5,4 +5,5 @@ export interface Booth {
   status: string;
   locationNumber: number;
   imageUrl : string;
+  posterUrls: string[];
 }

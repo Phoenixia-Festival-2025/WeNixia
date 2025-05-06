@@ -15,6 +15,7 @@ import BoothMenuList from '@/components/booth/detail/BoothMenuList';
 import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import BoothMapHighlighter from '@/components/booth/detail/\bBoothMapHighlighter';
+import BoothPhotoCards from '@/components/booth/detail/BoothPhotoCards';
 
 export default function BoothDetailPage() {
   const router = useRouter();
@@ -112,6 +113,19 @@ export default function BoothDetailPage() {
             className="bg-blue-50 rounded-xl p-4 shadow-sm"
           >
             <BoothMenuList menus={menus} />
+          </motion.div>
+        )}
+
+        {/* 포토카드 (booth 타입이며 posterUrls 존재할 때만) */}
+        {type === 'club' && booth?.posterUrls && booth.posterUrls.length > 0 && (
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+            className="bg-white rounded-xl p-4 shadow-sm"
+          >
+            <BoothPhotoCards photoCards={booth.posterUrls} />
           </motion.div>
         )}
 
