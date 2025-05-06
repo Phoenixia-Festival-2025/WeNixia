@@ -1,6 +1,8 @@
+import Image from 'next/image';
+
 interface Menu {
   name: string;
-  price: number | string; // <- number 허용
+  price: number | string;
   imageUrl?: string;
 }
 
@@ -30,11 +32,15 @@ export default function BoothMenuList({ menus }: BoothMenuListProps) {
 
             {/* 이미지 */}
             {menu.imageUrl ? (
-              <img
-                src={menu.imageUrl}
-                alt={`${menu.name} 이미지`}
-                className="w-16 h-16 object-cover rounded-md ml-4"
-              />
+              <div className="relative w-16 h-16 rounded-md overflow-hidden ml-4 flex-shrink-0">
+                <Image
+                  src={menu.imageUrl}
+                  alt={`${menu.name} 이미지`}
+                  fill
+                  className="object-cover"
+                  sizes="64px"
+                />
+              </div>
             ) : (
               <div className="w-16 h-16 flex items-center justify-center bg-gray-100 text-gray-400 text-xs rounded-md ml-4">
                 이미지 없음
