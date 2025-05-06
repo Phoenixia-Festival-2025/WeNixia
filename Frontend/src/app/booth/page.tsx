@@ -56,8 +56,10 @@ export default function BoothPage() {
   }, [dispatch]);
   
   const renderList = () => {
+    // 푸드트럭
     if (selectedCategory === '푸드트럭') {
-      return foodTruckList.map((truck) => (
+      const sorted = [...foodTruckList].sort((a, b) => a.name.localeCompare(b.name));
+      return sorted.map((truck) => (
         <motion.div key={`foodtruck-${truck.id}`} variants={itemVariants}>
           <BoothCard
             id={truck.id}
@@ -70,7 +72,8 @@ export default function BoothPage() {
         </motion.div>
       ));
     }
-  
+
+    // 전체
     if (selectedCategory === '전체') {
       const merged = [
         ...boothList.map((booth) => ({
@@ -95,9 +98,9 @@ export default function BoothPage() {
           imageUrl: undefined,
         })),
       ];
-    
+
       const sorted = merged.sort((a, b) => a.name.localeCompare(b.name));
-    
+
       return sorted.map((item) => (
         <motion.div key={`${item.type}-${item.id}`} variants={itemVariants}>
           <BoothCard
@@ -106,14 +109,16 @@ export default function BoothPage() {
             description={item.description}
             imageUrl={item.imageUrl}
             type={item.type}
-            status="" // status는 필요 없어졌으므로 빈 문자열 또는 제거
+            status=""
           />
         </motion.div>
       ));
     }
-  
+
+    // 동아리 / 부스
     if (selectedCategory === '동아리 / 부스') {
-      return boothList.map((booth) => (
+      const sorted = [...boothList].sort((a, b) => a.name.localeCompare(b.name));
+      return sorted.map((booth) => (
         <motion.div key={`club-${booth.id}`} variants={itemVariants}>
           <BoothCard
             id={booth.id}
@@ -126,8 +131,10 @@ export default function BoothPage() {
       ));
     }
 
+    // 플리마켓
     if (selectedCategory === '플리마켓') {
-      return fleaMarketList.map((market) => (
+      const sorted = [...fleaMarketList].sort((a, b) => a.title.localeCompare(b.title));
+      return sorted.map((market) => (
         <motion.div key={`flea-${market.id}`} variants={itemVariants}>
           <BoothCard
             id={market.id}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import Image from 'next/image';
 
 export default function BoothBanner() {
   const [showDetails, setShowDetails] = useState(false);
@@ -15,10 +16,13 @@ export default function BoothBanner() {
         {/* 전체 배치도 */}
         <div className="relative w-full flex justify-center">
           <Zoom>
-            <img
+            <Image
               src="/assets/전체배치도.jpg"
               alt="부스 전체 배치도"
-              className="w-full h-auto rounded-md"
+              width={768}
+              height={512}
+              className="rounded-md w-full h-auto object-contain"
+              priority
             />
           </Zoom>
           <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-md pointer-events-none">
@@ -46,10 +50,13 @@ export default function BoothBanner() {
             className="overflow-hidden w-full max-w-md"
           >
             <Zoom>
-              <img
+              <Image
                 src="/assets/부스안내.jpg"
                 alt="부스 번호 설명"
-                className="w-full h-auto rounded-md"
+                width={768}
+                height={512}
+                className="rounded-md w-full h-auto object-contain"
+                priority
               />
             </Zoom>
           </motion.div>

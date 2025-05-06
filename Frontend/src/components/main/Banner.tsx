@@ -1,5 +1,4 @@
-'use client';
-
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -31,8 +30,7 @@ export default function Banner() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoaded(true);
-    }, 200); // 약간의 연출용 지연
-
+    }, 200);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -73,18 +71,23 @@ export default function Banner() {
               className="relative w-48 h-60 rounded-xl overflow-hidden shadow-md"
             >
               {/* 이미지 */}
-              <img
-                src={item.src}
-                alt={item.name}
-                className={`w-full h-full object-cover transition-opacity duration-700 ${
-                  loaded ? 'opacity-100' : 'opacity-50'
-                }`}
-              />
+              <div className="absolute inset-0">
+                <Image
+                  src={item.src}
+                  alt={item.name}
+                  fill
+                  className={`object-cover transition-opacity duration-700 ${
+                    loaded ? 'opacity-100' : 'opacity-50'
+                  }`}
+                  sizes="192px" // w-48 == 12rem == 192px
+                  priority={isActive}
+                />
+              </div>
 
-              {/* ✅ 하단 그라데이션 오버레이 */}
+              {/* 하단 그라데이션 */}
               <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/60 to-transparent z-10" />
 
-              {/* ✨ 텍스트 오버레이 */}
+              {/* 텍스트 오버레이 */}
               <div
                 className={`absolute bottom-6 left-0 right-0 px-4 text-center z-20 transition-opacity duration-500 ${
                   isActive ? 'opacity-100' : 'opacity-0'
