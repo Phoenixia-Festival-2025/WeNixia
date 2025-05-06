@@ -4,6 +4,8 @@ import com.cloud.phoenixia.model.Booth;
 import com.cloud.phoenixia.model.BoothStatus;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,6 +19,8 @@ public class BoothResponseDTO {
     private BoothStatus status;
     private int locationNumber;
     private String imageUrl;
+    private List<String> posterUrls;
+
 
 //    public BoothResponseDTO toResponseDTO(Booth booth) {
 //        return BoothResponseDTO.builder()

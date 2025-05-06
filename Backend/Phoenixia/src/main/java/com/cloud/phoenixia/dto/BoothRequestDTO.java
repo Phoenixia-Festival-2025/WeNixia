@@ -3,6 +3,8 @@ package com.cloud.phoenixia.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,4 +18,6 @@ public class BoothRequestDTO {
     private int locationNumber;
 
     private String imageUrl; // ✅ optional 필드
+
+    private List<String> posterUrls; // ✅ 추가
 }

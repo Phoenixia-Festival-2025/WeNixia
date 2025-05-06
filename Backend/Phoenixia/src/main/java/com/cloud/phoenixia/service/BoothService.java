@@ -3,11 +3,14 @@ package com.cloud.phoenixia.service;
 import com.cloud.phoenixia.dto.BoothRequestDTO;
 import com.cloud.phoenixia.dto.BoothResponseDTO;
 import com.cloud.phoenixia.model.Booth;
+import com.cloud.phoenixia.model.BoothPoster;
 import com.cloud.phoenixia.model.BoothStatus;
+import com.cloud.phoenixia.repository.BoothPosterRepository;
 import com.cloud.phoenixia.repository.BoothRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,16 +19,34 @@ import java.util.Optional;
 public class BoothService {
 
     private final BoothRepository boothRepository;
+    private final BoothPosterRepository boothPosterRepository;
 
     public Booth createFromDTO(BoothRequestDTO dto) {
         Booth booth = Booth.builder()
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .status(BoothStatus.valueOf(dto.getStatus()))
-                .locationNumber(dto.getLocationNumber()) // ✅ 추가
-                .imageUrl(dto.getImageUrl() != null ? dto.getImageUrl() : "https://phoenixia-static-assets.s3.ap-northeast-2.amazonaws.com/default.png") // ✅ 기본 이미지
+                .locationNumber(dto.getLocationNumber())
+                .imageUrl(dto.getImageUrl() != null ? dto.getImageUrl()
+                        : "https://phoenixia-static-assets.s3.ap-northeast-2.amazonaws.com/default.png")
                 .build();
-        return boothRepository.save(booth);
+
+        Booth saved = boothRepository.save(booth);
+
+        // ✅ 포스터 저장
+        if (dto.getPosterUrls() != null && !dto.getPosterUrls().isEmpty()) {
+            List<BoothPoster> posters = new ArrayList<>();
+            for (String url : dto.getPosterUrls()) {
+                posters.add(BoothPoster.builder()
+                        .imageUrl(url)
+                        .booth(saved)
+                        .build());
+            }
+            boothPosterRepository.saveAll(posters);
+            saved.setPosters(posters); // optional
+        }
+
+        return saved;
     }
 
     public List<BoothResponseDTO> getAll() {
@@ -38,8 +59,6 @@ public class BoothService {
         return boothRepository.findById(id).map(this::convertToDTO);
     }
 
-
-    // 수정
     public BoothResponseDTO updateFromDTO(Long id, BoothRequestDTO dto) {
         return boothRepository.findById(id)
                 .map(booth -> {
@@ -48,19 +67,32 @@ public class BoothService {
                     booth.setStatus(BoothStatus.valueOf(dto.getStatus()));
                     booth.setLocationNumber(dto.getLocationNumber());
 
-                    // ✅ imageUrl 처리 로직
                     String imageUrl = dto.getImageUrl();
                     if (imageUrl == null || imageUrl.trim().isEmpty()) {
                         imageUrl = "https://phoenixia-static-assets.s3.ap-northeast-2.amazonaws.com/default.png";
                     }
                     booth.setImageUrl(imageUrl);
 
-                    return convertToDTO(boothRepository.save(booth));
+                    Booth updated = boothRepository.save(booth);
+
+                    // ✅ 포스터 업데이트 (기존 삭제 후 재등록)
+                    if (dto.getPosterUrls() != null) {
+                        boothPosterRepository.deleteAll(updated.getPosters());
+                        List<BoothPoster> newPosters = dto.getPosterUrls().stream()
+                                .map(url -> BoothPoster.builder()
+                                        .imageUrl(url)
+                                        .booth(updated)
+                                        .build())
+                                .toList();
+                        boothPosterRepository.saveAll(newPosters);
+                        updated.setPosters(newPosters);
+                    }
+
+                    return convertToDTO(updated);
                 })
                 .orElseThrow(() -> new IllegalArgumentException("Booth not found"));
     }
 
-    // 삭제
     public void delete(Long id) {
         boothRepository.deleteById(id);
     }
@@ -71,6 +103,10 @@ public class BoothService {
             imageUrl = "https://phoenixia-static-assets.s3.ap-northeast-2.amazonaws.com/default.png";
         }
 
+        List<String> posterUrls = booth.getPosters() != null
+                ? booth.getPosters().stream().map(BoothPoster::getImageUrl).toList()
+                : List.of();
+
         return BoothResponseDTO.builder()
                 .id(booth.getId())
                 .name(booth.getName())
@@ -78,6 +114,7 @@ public class BoothService {
                 .status(booth.getStatus())
                 .locationNumber(booth.getLocationNumber())
                 .imageUrl(imageUrl)
+                .posterUrls(posterUrls) // ✅ 포스터 포함
                 .build();
     }
 }
