@@ -11,5 +11,6 @@ export interface FoodTruck {
   name: string;
   description: string;
   status: string;
+  imageUrl: string;
   menuItems: MenuItem[];
 }
