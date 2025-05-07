@@ -18,7 +18,7 @@ const lineup: LineupInfo[] = [
   { src: '/lineup/윤도현밴드.jpg', name: 'YB', time: '5월 7일 21:25' },
   { src: '/lineup/호미들.jpg', name: '호미들', time: '5월 8일 20:15' },
   { src: '/lineup/애쉬아일랜드.jpg', name: 'ASH ISLAND', time: '5월 8일 20:50' },
-  { src: '/lineup/스패셜게스트.jpg', name: 'SPECIAL GUEST', time: '5월 8일 21:25' },
+  { src: '/lineup/박재범.jpg', name: 'JAY PARK', time: '5월 8일 21:25' },
   { src: '/lineup/로이킴.jpg', name: '로이킴', time: '5월 9일 20:00' },
   { src: '/lineup/다비치.jpg', name: '다비치', time: '5월 9일 20:40' },
   { src: '/lineup/루시.jpg', name: 'LUCY', time: '5월 9일 21:25' },
