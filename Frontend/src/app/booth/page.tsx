@@ -66,7 +66,7 @@ export default function BoothPage() {
             name={truck.name}
             description={truck.description}
             status={truck.status}
-            imageUrl={truck.menuItems[0]?.imageUrl}
+            imageUrl={truck.imageUrl}
             type="foodtruck"
           />
         </motion.div>
@@ -81,14 +81,14 @@ export default function BoothPage() {
           name: booth.name,
           description: booth.description,
           type: 'club' as const,
-          imageUrl: undefined,
+          imageUrl: booth.imageUrl,
         })),
         ...foodTruckList.map((truck) => ({
           id: truck.id,
           name: truck.name,
           description: truck.description,
           type: 'foodtruck' as const,
-          imageUrl: truck.menuItems[0]?.imageUrl,
+          imageUrl: truck.imageUrl,
         })),
         ...fleaMarketList.map((market) => ({
           id: market.id,
@@ -125,6 +125,7 @@ export default function BoothPage() {
             name={booth.name}
             description={booth.description}
             status={booth.status}
+            imageUrl={booth.imageUrl}
             type="club"
           />
         </motion.div>

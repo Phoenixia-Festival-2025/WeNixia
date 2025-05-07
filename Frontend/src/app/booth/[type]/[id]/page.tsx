@@ -58,12 +58,10 @@ export default function BoothDetailPage() {
   if (!booth && !foodTruck && !fleaMarket) {
     return <div className="text-center mt-10 text-gray-400">해당 정보를 찾을 수 없습니다.</div>;
   }
-  console.log(booth);
 
   const name = booth?.name || foodTruck?.name || fleaMarket?.title || '';
   const description = booth?.description || foodTruck?.description || fleaMarket?.description || '';
   const menus = foodTruck?.menuItems || [];
-
   return (
     <div className="min-h-screen bg-white">
       <div className="bg-white h-14 flex items-center px-4 shadow-sm border-b">
@@ -94,7 +92,7 @@ export default function BoothDetailPage() {
           className="rounded-xl overflow-hidden shadow-md"
         >
           <BoothImage
-            src={booth?.imageUrl as string}
+            src={booth?.imageUrl || foodTruck?.imageUrl || ''}
             alt={name}
           />
         </motion.div>
