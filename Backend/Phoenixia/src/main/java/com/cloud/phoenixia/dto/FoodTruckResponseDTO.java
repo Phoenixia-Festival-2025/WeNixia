@@ -14,5 +14,7 @@ public class FoodTruckResponseDTO {
     private String name;
     private String description;
     private BoothStatus status;
+
+    private String imageUrl; // ✅ 추가됨
     private List<MenuItemDTO> menuItems;
 }

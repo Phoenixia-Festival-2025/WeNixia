@@ -11,69 +11,51 @@ import com.cloud.phoenixia.repository.FoodTruckRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class FoodTruckService {
 
+    private static final String DEFAULT_IMAGE_URL = "https://phoenixia-static-assets.s3.ap-northeast-2.amazonaws.com/foddtruckImg.png";
+    private static final String DEFAULT_MENU_IMAGE_URL = "https://phoenixia-static-assets.s3.ap-northeast-2.amazonaws.com/foodDefault.png";
+
     private final FoodTruckRepository foodTruckRepository;
 
+    // 전체 조회
     public List<FoodTruckResponseDTO> getAllWithMenus() {
         return foodTruckRepository.findAll().stream()
-                .map(truck -> FoodTruckResponseDTO.builder()
-                        .id(truck.getId())
-                        .name(truck.getName())
-                        .description(truck.getDescription())
-                        .status(truck.getStatus())
-                        .menuItems(
-                                truck.getMenuItems().stream()
-                                        .map(menu -> MenuItemDTO.builder()
-                                                .name(menu.getName())
-                                                .description(menu.getDescription())
-                                                .price(menu.getPrice())
-                                                .imageUrl(menu.getImageUrl())
-                                                .status(menu.getStatus() != null ? menu.getStatus().name() : null)
-                                                .build())
-                                        .toList()
-                        )
-                        .build())
-                .toList();
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
-    // ✅ ID로 조회 후 DTO 변환 (Optional로 반환)
+    // 단건 조회
     public Optional<FoodTruckResponseDTO> findDTOById(Long id) {
-        return foodTruckRepository.findById(id)
-                .map(this::convertToDTO);
+        return foodTruckRepository.findById(id).map(this::convertToDTO);
     }
 
+    // 생성
     public FoodTruck createFromDTO(FoodTruckRequestDTO dto) {
         FoodTruck truck = FoodTruck.builder()
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .status(BoothStatus.valueOf(dto.getStatus()))
+                .imageUrl(resolveImageUrl(dto.getImageUrl(), DEFAULT_IMAGE_URL))
                 .build();
 
-        List<MenuItem> menuList = dto.getMenuItems().stream()
-                .map(item -> {
-                    // 🧠 상태 기본값 처리
-                    MenuItemStatus status = item.getStatus() != null
-                            ? MenuItemStatus.valueOf(item.getStatus())
-                            : MenuItemStatus.판매중;
+        List<MenuItem> menuItems = dto.getMenuItems().stream()
+                .map(item -> MenuItem.builder()
+                        .name(item.getName())
+                        .description(item.getDescription())
+                        .price(item.getPrice())
+                        .status(resolveStatus(item.getStatus()))
+                        .imageUrl(resolveImageUrl(item.getImageUrl(), DEFAULT_MENU_IMAGE_URL))
+                        .foodTruck(truck)
+                        .build()
+                ).collect(Collectors.toList());
 
-                    return MenuItem.builder()
-                            .name(item.getName())
-                            .description(item.getDescription())
-                            .price(item.getPrice())
-                            .imageUrl(item.getImageUrl())
-                            .status(status) // ✅ status 설정
-                            .foodTruck(truck) // ✅ 연관관계 주입
-                            .build();
-                }).toList();
-
-        truck.setMenuItems(menuList);
+        truck.setMenuItems(menuItems);
         return foodTruckRepository.save(truck);
     }
 
@@ -83,48 +65,66 @@ public class FoodTruckService {
                     truck.setName(dto.getName());
                     truck.setDescription(dto.getDescription());
                     truck.setStatus(BoothStatus.valueOf(dto.getStatus()));
+                    truck.setImageUrl(resolveImageUrl(dto.getImageUrl(), DEFAULT_IMAGE_URL));
 
-                    if (dto.getMenuItems() != null) {
-                        dto.getMenuItems().forEach(item -> {
-                            truck.getMenuItems().stream()
-                                    .filter(existing -> existing.getName().equals(item.getName()))
-                                    .findFirst()
-                                    .ifPresent(existing -> {
-                                        existing.setStatus(item.getStatus() != null
-                                                ? MenuItemStatus.valueOf(item.getStatus())
-                                                : MenuItemStatus.판매중);
-                                    });
-                        });
-                    }
+                    // ✅ 기존 메뉴 삭제 후 다시 추가
+                    truck.getMenuItems().clear();
+                    List<MenuItem> updatedItems = dto.getMenuItems().stream()
+                            .map(item -> MenuItem.builder()
+                                    .name(item.getName())
+                                    .description(item.getDescription())
+                                    .price(item.getPrice())
+                                    .imageUrl(resolveImageUrl(item.getImageUrl(), DEFAULT_MENU_IMAGE_URL))
+                                    .status(resolveStatus(item.getStatus()))
+                                    .foodTruck(truck)
+                                    .build())
+                            .collect(Collectors.toList());
+
+                    truck.getMenuItems().addAll(updatedItems); // ✅ 기존 리스트에 추가
 
                     return foodTruckRepository.save(truck);
                 })
                 .orElseThrow(() -> new IllegalArgumentException("FoodTruck not found"));
     }
 
-    // ✅ 삭제
+    // 삭제
     public void delete(Long id) {
         foodTruckRepository.deleteById(id);
     }
 
-    // 🔄 엔티티 → DTO 변환 로직
+    // Entity → DTO 변환
     private FoodTruckResponseDTO convertToDTO(FoodTruck truck) {
         return FoodTruckResponseDTO.builder()
                 .id(truck.getId())
                 .name(truck.getName())
                 .description(truck.getDescription())
                 .status(truck.getStatus())
+                .imageUrl(resolveImageUrl(truck.getImageUrl(), DEFAULT_IMAGE_URL))
                 .menuItems(
                         truck.getMenuItems().stream()
                                 .map(menu -> MenuItemDTO.builder()
                                         .name(menu.getName())
                                         .description(menu.getDescription())
                                         .price(menu.getPrice())
-                                        .imageUrl(menu.getImageUrl())
+                                        .imageUrl(resolveImageUrl(menu.getImageUrl(), DEFAULT_MENU_IMAGE_URL))
                                         .status(menu.getStatus() != null ? menu.getStatus().name() : null)
-                                        .build()
-                                ).collect(Collectors.toList())
+                                        .build())
+                                .collect(Collectors.toList())
                 )
                 .build();
+    }
+
+    // 🔧 유틸: 이미지 경로 설정
+    private String resolveImageUrl(String url, String fallback) {
+        return Optional.ofNullable(url)
+                .filter(s -> !s.isBlank())
+                .orElse(fallback);
+    }
+
+    // 🔧 유틸: 상태값 처리
+    private MenuItemStatus resolveStatus(String status) {
+        return Optional.ofNullable(status)
+                .map(MenuItemStatus::valueOf)
+                .orElse(MenuItemStatus.판매중);
     }
 }
