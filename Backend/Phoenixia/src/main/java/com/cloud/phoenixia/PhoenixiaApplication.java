@@ -10,4 +10,5 @@ public class PhoenixiaApplication {
         SpringApplication.run(PhoenixiaApplication.class, args);
     }
 
+    //수업 공부했습니다.,냐ㅏ런먐ㄴㄹㅁ냐ㅐㄴ러
 }
